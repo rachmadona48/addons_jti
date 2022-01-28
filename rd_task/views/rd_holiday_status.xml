@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="rd_hr_holiday_status_view_form_inherit" model="ir.ui.view">
+        <field name="name">rd.hr.holidays.status.form</field>
+        <field name="model">hr.holidays.status</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='timesheet_generate']" position="after">
+            	<field name="gender"/>
+            	<field name="status_karyawan"/>
+            	<field name="marital"/>
+            	<field name="joining_date"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

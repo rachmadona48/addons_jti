@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="rd_hr_employee">
+        <field name="name">rd_hr_employee_inherit form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="LEAVE">
+                    <field name="rd_line_hr">
+                        <tree string="Leave" editable="bottom">
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>          
+        </field>
+    </record>
+</odoo>
