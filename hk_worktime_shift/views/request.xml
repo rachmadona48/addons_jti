@@ -1,0 +1,87 @@
+<odoo>
+    <data>
+
+        <record id="hr_schedule_shifting_view_form" model="ir.ui.view">
+            <field name="name">hr_schedule_shifting_view_form</field>
+            <field name="model">resource.calendar.shifting</field>
+            <field name="arch" type="xml">
+                <form string="Schedule Shifting">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <field name="is_shift" invisible="1"/>
+                        <field name="is_request" invisible="1"/>
+                        <group>
+                            <field name="analytic_id"/>
+                        </group>
+                        <group>
+                            <label for="date_from" string="Periode"/>
+                            <div>
+                                <field name="date_from" class="oe_inline"/>
+                                -
+                                <field name="date_to" class="oe_inline"
+                                       nolabel="1"/>
+                            </div>
+                        </group>
+                        <field name="employee_line">
+                            <tree>
+                                <field name="employee_id"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_schedule_shifting_employee_view_form" model="ir.ui.view">
+            <field name="name">hr_schedule_shifting_employee_view_form</field>
+            <field name="model">resource.calendar.shifting.employee</field>
+            <field name="arch" type="xml">
+                <form string="Schedule Shifting Employee">
+                    <sheet>
+                        <group>
+                            <field name="employee_id"/>
+                        </group>
+                        <field name="schedule_line">
+                            <tree editable="bottom">
+                                <field name="attendance_id"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="hr_schedule_shifting_view_tree" model="ir.ui.view">
+            <field name="name">hr_schedule_shifting_view_tree</field>
+            <field name="model">resource.calendar.shifting</field>
+            <field name="arch" type="xml">
+                <tree string="Categories">
+                    <field name="name"/>
+                    <field name="analytic_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_schedule_shifting_action" model="ir.actions.act_window">
+            <field name="name">Shifting</field>
+            <field name="res_model">resource.calendar.shifting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'is_shift' : True}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Add a Shifting Schedule here.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

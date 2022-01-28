@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+
+        <menuitem
+                id="hr_schedule_menu"
+                name="Schedule"
+                parent="hr.menu_hr_root"
+                groups="hr.group_hr_manager"
+                sequence="80"/>
+
+        <menuitem id="hr_schedule_shifting_menu"
+                  name="Shifting"
+                  parent="hr_schedule_menu"
+                  sequence="0"
+                  action="hr_schedule_shifting_action"/>
+
+        <menuitem id="hr_schedule_master_menu"
+                  name="Master Data"
+                  parent="hr_schedule_menu"
+                  sequence="99"/>
+
+        <menuitem id="hr_schedule_master_ws_project_menu"
+                  name="Working Schedule SOM (Project)"
+                  parent="hr_schedule_master_menu"
+                  sequence="0"
+                  action="hr_schedule_master_ws_project_action"/>
+
+        <menuitem id="hr_schedule_master_ws_menu"
+                  name="Working Schedule Non SOM"
+                  parent="hr_schedule_master_menu"
+                  sequence="1"
+                  action="hr_schedule_master_ws_action"/>
+    </data>
+</odoo>
