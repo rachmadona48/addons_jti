@@ -8,9 +8,11 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='timesheet_generate']" position="after">
             	<field name="gender"/>
+                <field name="som_nonsom"/>
             	<field name="status_karyawan"/>
             	<field name="marital"/>
-            	<field name="joining_date"/>
+            	<!-- <field name="joining_date"/> -->
+                <field name="month_service"/>
             </xpath>
         </field>
     </record>
