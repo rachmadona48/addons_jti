@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dn_module_name_dn_module_name,dn_module_name.dn_module_name,model_dn_revisi_absen,dn_revisi_absen.group_revisi_absen_user,1,1,1,1
+access_dn_module_name_dn_module_name_line,dn_module_name.dn_module_name,model_dn_revisi_absen_revision_line,dn_revisi_absen.group_revisi_absen_user,1,1,1,1
+access_dn_module,dn_module_name.dn_module_name,model_dn_revisi_absen,dn_revisi_absen.group_revisi_absen_manager,1,1,1,1
+access_dn_module_line,dn_module_name.dn_module_name,model_dn_revisi_absen_revision_line,dn_revisi_absen.group_revisi_absen_manager,1,1,1,1
