@@ -10,9 +10,9 @@
 <!--                    <button string="Submit" name="action_submit" states="draft" type="object" class="oe_highlight" groups='' />-->
                     <button string="Set to Draft" name="action_set_to_draft" states="cancel" type="object" class="oe_highlight" groups='' />
                     <button string="Cancel" name="action_cancel"  attrs="{'invisible':[('state','=','close')]}" type="object" class="oe_highlight" groups='' />
-                    <button string="Cancel" name="action_cancel"  states="close" type="object" class="oe_highlight" groups='dn_revisi_absen.group_revisi_absen_manager'  />
+                    <button string="Cancel" name="action_cancel"  states="close" type="object" class="oe_highlight"   />
                     <button string="Submit" name="action_submit" states="draft" type="object" class="oe_highlight" groups='' />
-                    <button string="Validate" name="action_validate"  states="approved" type="object" class="oe_highlight" groups='dn_revisi_absen.group_revisi_absen_manager' />
+                    <button string="Validate" name="action_validate"  states="approved" type="object" class="oe_highlight" />
                     <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,close" readonly="1"/>
                 </header>
                 <sheet>
