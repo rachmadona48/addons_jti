@@ -5,6 +5,14 @@ from odoo import models, fields, api
 class dn_module_name(models.Model):
     _name = 'dn.revisi.absen'
 
+    @api.model
+    def create(self, vals):
+        name = self.env['ir.sequence'].next_by_code('rev.abs.seq')
+        vals.update({
+            'name': name
+            })
+        return super(dn_module_name, self).create(vals)
+
     name = fields.Char('Name')
     sequence = fields.Char('Sequence')
     state = fields.Selection([('draft', "Draft"),
@@ -39,7 +47,7 @@ class dn_module_name(models.Model):
             if r.revisi_line_ids:
                 r.revisi_line_ids.unlink()
             draft_attendance = self.env['hr.draft.attendance']
-            domain = [('employee_id', 'in', r.employee_ids.ids),('date','<=', r.date_to),('date','>=', r.date_from)]
+            domain = [('employee_id', 'in', r.employee_ids.ids),('date','<=', r.date_to),('date','>=', r.date_from),('moved','=', True)]
             stock_move = draft_attendance.search(domain)
             new_lines = self.env['dn.revisi.absen.revision.line']
             for line in stock_move:
@@ -55,7 +63,7 @@ class dn_module_name(models.Model):
             if r.state == 'close':
                 for line in r.revisi_line_ids:
                     if line.editable:
-                        line.write({'name': line.backup_datetime,
+                        line.attendance_id.write({'name': line.backup_datetime,
                                     'date': line.backup_date,
                                     'attendance_status': line.backup_attendance_status,
                                     'editable': False, })
@@ -78,10 +86,12 @@ class dn_module_name(models.Model):
         for r in self:
             for line in r.revisi_line_ids:
                 if line.editable:
-                    line.write({'name': line.datetime,
+                    print(line.attendance_id.name,'aaa')
+                    line.attendance_id.write({'name': line.datetime,
                                 'date': line.date,
                                 'attendance_status': line.attendance_status,
                                 'editable': True, })
+                    print(line.attendance_id.name,'bbb')
             r.state = 'close'
 
 class dn_module_name_revision(models.Model):
