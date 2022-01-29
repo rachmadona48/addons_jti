@@ -8,6 +8,22 @@ class RdHrEmployee(models.Model):
     
     rd_line_hr = fields.One2many(comodel_name='line.hr.employee.leave', inverse_name='employee_id',
                                 ondelete='set null')
+
+    @api.model
+    def create(self, values):
+        # print(self.gender," self.gender")
+        # print(values['gender']," values.gender")
+        leave = self.env["hr.holidays.status"].sudo().search([("gender","=",values['gender']),("som_nonsom","=",values['som_nonsom']),("status_karyawan","=",values['status_karyawan']),("marital","=",values['marital'])])
+        
+        listt = []
+        for eq in leave:
+            line = {'name':eq.id}
+            listt.append([0,0,line])
+        values.update({'rd_line_hr':listt})
+        
+        return super(RdHrEmployee, self).create(values)      
+
+
     
 class LineRdHrEmployee(models.Model):
     _name = "line.hr.employee.leave"
