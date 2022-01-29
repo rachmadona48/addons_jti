@@ -25,6 +25,7 @@ class dn_module_name(models.Model):
     date_to = fields.Date('Date To')
     employee_ids = fields.Many2many('hr.employee', string='Employee')
     revisi_line_ids = fields.One2many('dn.revisi.absen.revision.line','revisi_absen_id', string='Line')
+    keterangan = fields.Char('Keterangan')
 
     @api.multi
     def create_button_cek(self, aline):
@@ -47,7 +48,7 @@ class dn_module_name(models.Model):
             if r.revisi_line_ids:
                 r.revisi_line_ids.unlink()
             draft_attendance = self.env['hr.draft.attendance']
-            domain = [('employee_id', 'in', r.employee_ids.ids),('date','<=', r.date_to),('date','>=', r.date_from),('moved','=', True)]
+            domain = [('employee_id', 'in', r.employee_ids.ids),('date','<=', r.date_to),('date','>=', r.date_from)]
             stock_move = draft_attendance.search(domain)
             new_lines = self.env['dn.revisi.absen.revision.line']
             for line in stock_move:
@@ -66,7 +67,8 @@ class dn_module_name(models.Model):
                         line.attendance_id.write({'name': line.backup_datetime,
                                     'date': line.backup_date,
                                     'attendance_status': line.backup_attendance_status,
-                                    'editable': False, })
+                                    'editable': False,
+                                    'keterangan': line.keterangan, })
                 r.state = 'cancel'
             else:
                 r.state = 'cancel'
@@ -90,7 +92,8 @@ class dn_module_name(models.Model):
                     line.attendance_id.write({'name': line.datetime,
                                 'date': line.date,
                                 'attendance_status': line.attendance_status,
-                                'editable': True, })
+                                'editable': True,
+                                'moved': False,})
                     print(line.attendance_id.name,'bbb')
             r.state = 'close'
 
@@ -134,3 +137,9 @@ class Attendance(models.Model):
     _inherit = 'hr.draft.attendance'
 
     editable = fields.Boolean('Editable')
+    keterangan = fields.Char('Keterangan')
+
+class AttendanceBase(models.Model):
+    _inherit = 'hr.attendance'
+
+    keterangan = fields.Char('Keterangan')
