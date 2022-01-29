@@ -5,26 +5,27 @@
             <field name="name">dn.revisi.absen form</field>
             <field name="model">dn.revisi.absen</field>
             <field name="arch" type="xml">
-                <form string="Revisi Absen">
+                <form string="Payment Request">
                 <header>
 <!--                    <button string="Submit" name="action_submit" states="draft" type="object" class="oe_highlight" groups='' />-->
                     <button string="Set to Draft" name="action_set_to_draft" states="cancel" type="object" class="oe_highlight" groups='' />
                     <button string="Cancel" name="action_cancel"  attrs="{'invisible':[('state','=','close')]}" type="object" class="oe_highlight" groups='' />
-                    <button string="Cancel" name="action_cancel"  states="close" type="object" class="oe_highlight"   />
+                    <button string="Cancel" name="action_cancel"  states="close" type="object" class="oe_highlight"  />
                     <button string="Submit" name="action_submit" states="draft" type="object" class="oe_highlight" groups='' />
                     <button string="Validate" name="action_validate"  states="approved" type="object" class="oe_highlight" />
                     <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,close" readonly="1"/>
                 </header>
                 <sheet>
-                    <div class="oe_title" attrs="{'invisible': [('sequence', '=', False)]}">
-                        <h1><field name="sequence" readonly="1"/></h1>
+                    <div class="oe_title" attrs="{'invisible': [('name', '=', False)]}">
+                        <h1><field name="name" readonly="1"/></h1>
                     </div>
                     <group>
                         <group>
                             <field name="name" invisible="1"/>
-                            <field name="date_from"/>
-                            <field name="date_to"/>
-                            <field name="employee_ids" widget="many2many_tags"/>
+                            <field name="date_from" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date_to" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="keterangan" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="employee_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <button class="oe_stat_button" name="button_cek" string="Cek Absensi" type="object" states="draft" icon="fa-refresh" />
                         </group>
                         <group>
