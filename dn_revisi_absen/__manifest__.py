@@ -24,9 +24,9 @@
 
     # always loaded
     'data': [
-        'security/security.xml',
+        # 'security/security.xml',
         'views/view.xml',
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         # 'views/templates.xml',
     ],
     # only loaded in demonstration mode
