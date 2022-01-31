@@ -1,0 +1,37 @@
+<odoo>
+  <data>
+		<record model="ir.ui.view" id="inherit_to_penugasan_dn_form">
+			<field name="name">inherit_to_penugasan_form</field>
+			<field name="model">hr.penugasan</field>
+			<field name="inherit_id" ref="hr_rotasi_mutasi.hr_penugasan_form_view"/>
+			<field name="arch" type="xml">
+	           	<xpath expr="//notebook/page[1]/group[2]/field[@name='new_rangkap_tugas_ids']/tree/field[@name='persen']" position="after">
+	           		<field name="account_id" options="{'no_create': True, 'no_open': True}" domain="['|',('user_type_id.name','not in', ['Receivable','Payable','Bank and Cash','Credit Card']),('deprecated', '=', False)]" groups="account.group_account_invoice"/>
+	           		<field name="account_id2" options="{'no_create': True, 'no_open': True}" readonly="1" force_save="1" groups="hr.group_hr_user"/>
+	           	</xpath>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="inherit_to_contract_dn_form">
+			<field name="name">inherit_to_contract_form</field>
+			<field name="model">hr.contract</field>
+			<field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+			<field name="arch" type="xml">
+	           	<xpath expr="//field[@name='type_id']" position="after">
+	           		<field name="penugasan_id" options="{'no_create': True, 'no_open': True}" readonly="0" force_save="1"/>
+	           	</xpath>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="inherit_to_payslip_dn_form">
+			<field name="name">inherit_to_payslip_form</field>
+			<field name="model">hr.payslip</field>
+			<field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+			<field name="arch" type="xml">
+	           	<xpath expr="//field[@name='credit_note']" position="before">
+	           		<field name="penugasan_id" options="{'no_create': True, 'no_open': True}" readonly="1" force_save="1"/>
+	           	</xpath>
+            </field>
+        </record>
+  </data>
+</odoo>
