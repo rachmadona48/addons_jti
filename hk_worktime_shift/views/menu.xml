@@ -14,6 +14,12 @@
                   sequence="0"
                   action="hr_schedule_shifting_action"/>
 
+        <menuitem id="hr_schedule_non_shifting_menu"
+                  name="Non Shifting"
+                  parent="hr_schedule_menu"
+                  sequence="1"
+                  action="hr_schedule_non_shifting_action"/>
+
         <menuitem id="hr_schedule_master_menu"
                   name="Master Data"
                   parent="hr_schedule_menu"

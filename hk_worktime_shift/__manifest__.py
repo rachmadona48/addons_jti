@@ -26,6 +26,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/shifting.xml',
+        'views/non_shift.xml',
         'views/master_data.xml',
         'views/menu.xml',
     ],

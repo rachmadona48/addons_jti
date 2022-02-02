@@ -6,6 +6,15 @@
             <field name="model">resource.calendar.shifting</field>
             <field name="arch" type="xml">
                 <form string="Schedule Shifting">
+                    <header>
+                        <button name="act_confirm" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+                        <button name="act_execute"
+                                attrs="{'invisible': [('is_shift', '=', True)]}"
+                                states="confirm" string="Execute" type="object" class="oe_highlight"/>
+                        <button name="act_set_to_draft" states="confirm" string="Set to Draft" type="object" class="oe_highlight"/>
+
+                        <field name="state" widget="statusbar" class="oe_highlight" statusbar_visible="draft,confirm"/>
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
@@ -15,11 +24,17 @@
                         </div>
                         <field name="is_shift" invisible="1"/>
                         <field name="is_request" invisible="1"/>
+                        <field name="is_executed" invisible="1"/>
                         <group>
                             <field name="analytic_id" options="{'no_create': True, 'no_open': True}"
-                                   attrs="{'required': [('is_shift', '=', True)]}"/>
-                            <field name="resource_calendar_id" required="1" options="{'no_create': True, 'no_open': True}"
-                                   domain="[('analytic_id', '=', analytic_id)]"/>
+                                   attrs="{'required': [('is_shift', '=', True)], 'invisible': [('is_shift', '=', False)]}"/>
+                            <field name="resource_calendar_id" options="{'no_create': True, 'no_open': True}"
+                                   domain="[('analytic_id', '=', analytic_id)]"
+                                   attrs="{'required': [('is_shift', '=', True)], 'invisible': [('is_shift', '=', False)]}"/>
+                            <field name="resource_calendar_to_id" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'required': [('is_shift', '=', False)], 'invisible': [('is_shift', '=', True)]}"/>
+                            <field name="resource_calendar_after_id" options="{'no_create': True, 'no_open': True}"
+                                   attrs="{'required': [('is_shift', '=', False)], 'invisible': [('is_shift', '=', True)]}"/>
                         </group>
                         <group>
                             <label for="date_from" string="Periode"/>
@@ -30,9 +45,9 @@
                                        nolabel="1"/>
                             </div>
                         </group>
-                        <field name="employee_line">
+                        <field name="employee_line" attrs="{'invisible': [('is_shift', '=', False)]}">
                             <tree editable="bottom">
-                                <field name="shifting_id"/>
+                                <field name="shifting_id" invisible="1"/>
                                 <field name="employee_id" options="{'no_create': True, 'no_open': True}"/>
                                 <button name="open_schedule"
                                         string="Schedule" type="object"/>
@@ -71,9 +86,10 @@
             <field name="name">hr_schedule_shifting_view_tree</field>
             <field name="model">resource.calendar.shifting</field>
             <field name="arch" type="xml">
-                <tree string="Categories">
+                <tree string="Scheduled Shifting">
+                    <field name="is_shift" invisible="1"/>
                     <field name="name"/>
-                    <field name="analytic_id"/>
+                    <field name="analytic_id" attrs="{'column_invisible': [('is_shift', '=', False)]}"/>
                     <field name="date_from"/>
                     <field name="date_to"/>
                 </tree>
@@ -86,6 +102,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'default_is_shift' : True}</field>
+            <field name="domain">[('is_shift', '=', True)]</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     Add a Shifting Schedule here.
