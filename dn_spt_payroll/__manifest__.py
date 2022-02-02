@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "hk_worktime_shift",
+    'name': "dn_spt_payroll",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,18 +20,16 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'resource', 'analytic'],
+    'depends': ['hr_rotasi_mutasi','account','hr_contract','hr_payroll'],
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
-        'views/shifting.xml',
-        'views/non_shift.xml',
-        'views/master_data.xml',
-        'views/menu.xml',
+        # 'security/ir.model.access.csv',
+        'views/views.xml',
+        # 'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+        # 'demo/demo.xml',
     ],
 }
