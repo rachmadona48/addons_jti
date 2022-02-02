@@ -9,19 +9,50 @@ class Shifting(models.Model):
     name = fields.Char("Name")
     analytic_id = fields.Many2one(comodel_name='account.analytic.account', string="Project Code")
     resource_calendar_id = fields.Many2one(comodel_name='resource.calendar', string="Working Schedule")
+    resource_calendar_to_id = fields.Many2one(comodel_name='resource.calendar', string="Working Schedule To Be Set")
+    resource_calendar_after_id = fields.Many2one(comodel_name='resource.calendar', string="Working Schedule After")
     date_from = fields.Date("Date From")
     date_to = fields.Date("Date To")
     is_shift = fields.Boolean("Shift?")
     is_request = fields.Boolean("Request?")
+    is_executed = fields.Boolean("Executed?")
     employee_line = fields.One2many(comodel_name='resource.calendar.shifting.employee', inverse_name='shifting_id',
                                     string="Employees")
 
+    state = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirmed')], default='draft', copy=False)
+
+    @api.onchange('analytic_id')
+    def onchange_analytic_id(self):
+        self.resource_calendar_id = False
+        if self.employee_line:
+            self.employee_line.schedule_line = None
+
+    @api.multi
+    def act_confirm(self):
+        self.state = 'confirm'
+
+    @api.multi
+    def act_set_to_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def act_execute(self):
+        if not self.is_executed:
+            res_id = self.resource_calendar_to_id.id
+            self.is_executed = True
+        else:
+            res_id = self.resource_calendar_after_id.id
+        # query = ("""update hr_employee set resource_calendar_id = %s where som_nonsom = 'NON SOM'""" % ())
+        # self.cr.execute(query)
+        emps = self.env['hr.employee'].search([('som_nonsom', '=', 'NON SOM')])
+        for emp in emps:
+            emp.resource_calendar_id = res_id
 
 class ShiftingEmployee(models.Model):
     _name = 'resource.calendar.shifting.employee'
     _rec_name = 'employee_id'
 
-    shifting_id = fields.Many2one(comodel_name='resource.calendar.shifting', string='Shifting')
+    shifting_id = fields.Many2one(comodel_name='resource.calendar.shifting', ondelete='cascade', string='Shifting')
     employee_id = fields.Many2one(comodel_name='hr.employee', string='Employee')
     schedule_line = fields.One2many(comodel_name='resource.calendar.shifting.employee.schedule',
                                     inverse_name='shifting_employee_id', string="Schedule")
@@ -45,7 +76,7 @@ class ShiftingEmployeeSchedule(models.Model):
     _name = 'resource.calendar.shifting.employee.schedule'
     _rec_name = 'shifting_employee_id'
 
-    shifting_employee_id = fields.Many2one(comodel_name='resource.calendar.shifting.employee')
+    shifting_employee_id = fields.Many2one(comodel_name='resource.calendar.shifting.employee', ondelete='cascade')
     date = fields.Date("Date")
     attendance_id = fields.Many2one(comodel_name='resource.calendar.attendance', string="Attendance")
 
