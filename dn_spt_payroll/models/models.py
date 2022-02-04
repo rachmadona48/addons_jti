@@ -51,7 +51,8 @@ class HrPayslip(models.Model):
     @api.multi
     def compute_sheet(self):
         vals = super(HrPayslip, self).compute_sheet()
-        if self.contract_id.penugasan_id:
-            if not self.penugasan_id:
-                self.penugasan_id = self.contract_id.penugasan_id.id
+        for x in self:
+            if x.contract_id.penugasan_id:
+                if not x.penugasan_id:
+                    x.penugasan_id = x.contract_id.penugasan_id.id
         return vals
