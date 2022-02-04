@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="report_rd_bill_voucher_payment">
+			<t t-call="rd_voucher_payment.external_layout2">
+				<t t-set="o" t-value="o.with_context({'lang': lang})" />
+				<div class="page" style="font-size:12px">
+					<div class="oe_structure" />
+					<center style="margin-top: 1px !important">
+						<h5 style="margin-bottom: 1px !important">BUKTI PENGELUARAN KAS/BANK</h5>
+					</center>
+					<div id="address_informations" class="row mt32 mb32" style="margin-top: 3px !important; margin-bottom: 10px !important">
+						<div class="col-6">
+							<table border="0" style="width:100%">
+								<tbody>
+									<tr>
+										<td style="width:15%">Jenis</td>
+										<td style="width:5%">:</td>
+										<td>
+											<span>Cash Book</span>
+										</td>
+									</tr>
+
+									<tr>
+										<td style="width:15%">Rekening</td>
+										<td style="width:5%">:</td>
+										<td>
+											<span t-field="o.journal_type_id" />
+										</td>
+									</tr>
+
+									<tr>
+										<td style="width:15%">Vendor</td>
+										<td style="width:5%">:</td>
+										<td>
+											<span t-field="o.partner_id" />
+										</td>
+									</tr>
+									
+									<tr>
+										<td style="width:15%">Status</td>
+										<td style="width:5%">:</td>
+										<td>
+											<span t-field="o.state" />
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+						<div class="col-6">
+							<table border="0" style="width:100%">
+								<tbody>
+									<tr>
+										<td style="width:15%">Tanggal</td>
+										<td style="width:5%">:</td>
+										<td>
+											<span t-field="o.date_payment" />
+										</td>
+									</tr>
+
+									<tr>
+										<td style="width:15%">No Bukti</td>
+										<td style="width:5%">:</td>
+										<td>
+											<span t-field="o.name" />
+										</td>
+									</tr>
+									
+									<tr>
+										<td style="width:15%">Keterangan</td>
+										<td style="width:5%">:</td>
+										<td>
+											<span t-field="o.comment" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					<table class="table table-sm o_main_table"
+						name="invoice_line_table">
+						<thead>
+							<tr>
+								<t t-set="colspan" t-value="6" />
+								<th class="text-left">
+									<span>AKUN</span>
+								</th>
+								<th class="text-left">
+									<span>PERKIRAAN</span>
+								</th>
+								<th class="text-left">
+									<span>BILL</span>
+								</th>
+								<th class="text-right">
+									<span>JUMLAH</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody class="invoice_tbody">
+<!-- 							<tr t-foreach="o.get_entries(o.id)" t-as="line">
+								<td>
+									<span t-esc ="line['code']" />
+								</td>
+								<td>
+									<span t-esc ="line['name']" />
+								</td>
+								<td>
+									<span t-esc ="line['move_name']" />
+								</td>
+								<td>
+									<span t-esc ="line['bapb']" />
+								</td>
+								<td class="text-right" >
+									<span>Rp</span>
+									<span t-esc="'{0:,.2f}'.format(int(line['credit']))" t-esc-options='{"widget": "monetary", "display_currency": "o.currency_id"}' />
+
+								</td>
+							</tr> -->
+							<tr t-foreach="o.line_ids" t-as="line">
+							<td><span t-esc="line.name.account_id.code"/></td>
+							<td><span t-esc="line.name.account_id.name"/></td>
+							<td><span t-esc="line.name.number"/></td>
+							<td class="text-right"><span>Rp</span> <span t-esc="'{0:,.2f}'.format(line.residual)"/></td>
+							</tr>
+
+						</tbody>
+					</table>
+					<div class="clearfix">
+						<div id="total" class="row">
+							<div
+								t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+								<table class="table table-sm">
+									<tr class="border-black o_total">
+										<td>
+											<strong>Total</strong>
+										</td>
+										<td class="text-right" style="color: red;">
+										<!-- <t t-set="variable" t-value = "0"/>
+										<t t-foreach="o.get_entries(o.id)" t-as="line">
+										<t t-set ="variable" t-value="variable+int(line['credit'])"/>
+										</t> -->
+										<!-- <span>(Rp</span> -->
+										<!-- <span t-esc="'{0:,.2f}'.format(variable)"/> -->
+										<!-- <span>)</span> -->
+											
+											<span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- <p t-if='o.text_amount'>
+						<strong>TERBILANG: </strong>
+						<i>
+							<span t-field="o.text_amount"
+								style="text-transform:uppercase;" />
+						</i>
+					</p> -->
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<td style="width:25%" class="text-center">
+									Approved by,
+									<br />
+									<br />
+									<br />
+									<br />
+									<br>
+										<div>
+											<center>(...................................)</center>
+											<center>Direktur Non Medis</center>
+										</div>
+									</br>
+								</td>
+								<td style="width:25%" class="text-center">
+									Reviewed by,
+									<br />
+									<br />
+									<br />
+									<br />
+									<br>
+										<div>
+											<center>(...................................)</center>
+											<center>Manager Keuangan</center>
+										</div>
+									</br>
+								</td>
+								<td style="width:25%" class="text-center">
+									Prepared by,
+									<br />
+									<br />
+									<br />
+									<br />
+									<br>
+										<div>
+											<center>(...................................)</center>
+										</div>
+									</br>
+								</td>
+								<td style="width:25%" class="text-center">
+									Received by,
+									<br />
+									<br />
+									<br />
+									<br />
+									<br>
+										<div>
+											<center>(...................................)</center>
+										</div>
+									</br>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="footer"
+					style="position:absolute; margin:0px; padding:0px">
+					<span class="page" />
+					of
+					<span class="topage" />
+				</div>
+			</t>
+		</template>
+
+
+		<template id="report_rd_voucher_payment">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-set="lang" t-value="o.partner_id.lang" />
+					<t t-call="rd_voucher_payment.report_rd_bill_voucher_payment"
+						t-lang="lang" />
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

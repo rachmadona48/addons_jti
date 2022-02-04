@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="external_layout_standard2">
+	        <div class="header" style="border-bottom: 1px solid black;">
+	            <div class="row">
+	                <div class="col-4 mb4">
+	                    <span t-field="company.name" style="font-size:20px"></span>
+	                </div>
+	                <div class="col-1 mb4">
+	                </div>
+	                <div class="col-7 mb4" style="text-align:right; margin-top:5px">
+	                    <span t-field="company.street"></span>
+	                    <span t-field="company.city"></span>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="article o_report_layout_standard"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+	            <!-- <t t-call="web.address_layout"/> -->
+	            <t t-raw="0"/>
+	        </div> 
+	    </template>
+
+		<template id="external_layout2">
+			<t t-if="not o" t-set="o" t-value="doc" />
+
+			<t t-if="not company">
+				<!-- Multicompany -->
+				<t t-if="company_id">
+					<t t-set="company" t-value="company_id" />
+				</t>
+				<t t-elif="o and 'company_id' in o">
+					<t t-set="company" t-value="o.company_id.sudo()" />
+				</t>
+				<t t-else="else">
+					<t t-set="company" t-value="res_company" />
+				</t>
+			</t>
+
+			
+			<t t-call="rd_voucher_payment.external_layout_standard2">
+				<t t-raw="0" />
+			</t>
+
+		</template>
+		
+		<report string="Print SPK"
+			id="action_rd_voucher_payment" model="voucher.payment"
+			report_type="qweb-html"
+			name="rd_voucher_payment.report_rd_voucher_payment"
+			file="rd_voucher_payment.report_rd_voucher_payment"
+			print_report_name="
+			(object.state in ('draft') and 'Draft Bill -%s' %(object.partner_id.name) or
+			 'Payment Voucher - %s' % (object.name).replace('/',''))" />
+
+		<record id="action_rd_voucher_payment" model="ir.actions.report">
+			<field name="paperformat_id"
+				ref="rd_voucher_payment.paperformat_rd_voucher_payment" />
+		</record>
+
+	</data>
+</odoo>
