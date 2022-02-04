@@ -1,0 +1,13 @@
+<odoo>
+	<data>
+
+		<record id="seq_voucher_payment" model="ir.sequence">
+		    <field name="name">Voucher Payment</field>
+		    <field name="code">voucher.payment</field>
+		    <field name="prefix">SPK%(y)s%(month)s</field>
+		    <field name="padding">4</field>
+		    <field name="company_id" eval="False"/>
+		</record>
+
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+vp_approved,group_vp_approved,model_voucher_payment,,1,1,0,1
+vp_preview,group_vp_preview,model_voucher_payment,,1,1,0,0
+vp_prepare,group_vp_prepare,model_voucher_payment,,1,1,1,0
+vp_approved_line,group_vp_approved_line,model_voucher_payment_line,,1,1,0,1
+vp_preview_line,group_vp_preview_line,model_voucher_payment_line,,1,1,0,1
+vp_prepare_line,group_vp_prepare_line,model_voucher_payment_line,,1,1,1,1

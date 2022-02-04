@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="inherit_mcs_vendor_bill_form" model="ir.ui.view">
+		<field name="name">account.invoice.form.inherit_mcs_vendor_bill</field>
+		<field name="model">account.invoice</field>
+		<field name="inherit_id" ref="account.invoice_supplier_form" />
+		<field name="arch" type="xml">
+			<field name="reference" position="after">
+				<field name="payment_journal_id" />
+				<field name="voucher_id" />
+			</field>
+			<field name="partner_bank_id" position="after">
+				<!-- <field name="payment_number" /> -->
+				<field name="cek_number" />
+			</field>
+		</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="mcs_account_invoice_filter">
+		<field name="name">mcs.account.invoice.search</field>
+		<field name="model">account.invoice</field>
+		<field name="inherit_id"
+			ref="account.view_account_invoice_filter" />
+		<field name="arch" type="xml">
+			<xpath expr="//filter[@name='status']" position="after">
+				<filter name="Voucher Payment"
+					context="{'group_by':'voucher_id'}" />
+			</xpath>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="mcs_account_account">
+		<field name="name">mcs.account.account.form</field>
+		<field name="model">account.account</field>
+		<field name="inherit_id"
+			ref="account.view_account_form" />
+		<field name="arch" type="xml">
+			<field name="deprecated" position="after" >
+				<field name="rounding" />
+			</field>
+		</field>
+	</record>
+	
+</odoo>

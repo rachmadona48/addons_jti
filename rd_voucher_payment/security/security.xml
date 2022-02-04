@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="rule_vp_prepared" model="ir.rule">
+			<field name="name">rule.vp.prepared</field>
+			<field name="model_id" ref="rd_voucher_payment.model_voucher_payment" />
+			<field name="groups"
+				eval="[(4,ref('rd_voucher_payment.vp_prepared'))]" />
+			<field name="domain_force">[('state','=','draft'),('state','=','cancel')]</field>
+			<field eval="1" name="perm_read" />
+			<field eval="0" name="perm_create" />
+			<field eval="1" name="perm_write" />
+			<field eval="0" name="perm_unlink" />
+		</record>
+		
+		<record id="rule_vp_reviewes" model="ir.rule">
+			<field name="name">rule.vp.reviewes</field>
+			<field name="model_id" ref="rd_voucher_payment.model_voucher_payment" />
+			<field name="groups"
+				eval="[(4,ref('rd_voucher_payment.vp_reviewes'))]" />
+			<field name="domain_force">[('state','=','sent'),('state','=','cancel')]</field>
+			<field eval="1" name="perm_read" />
+			<field eval="0" name="perm_create" />
+			<field eval="1" name="perm_write" />
+			<field eval="0" name="perm_unlink" />
+		</record>
+		
+		<record id="rule_vp_approved" model="ir.rule">
+			<field name="name">rule.vp.approved</field>
+			<field name="model_id" ref="rd_voucher_payment.model_voucher_payment" />
+			<field name="groups"
+				eval="[(4,ref('rd_voucher_payment.vp_approved'))]" />
+			<field name="domain_force">[('state','=','confirm'),('state','=','cancel')]</field>
+			<field eval="1" name="perm_read" />
+			<field eval="0" name="perm_create" />
+			<field eval="1" name="perm_write" />
+			<field eval="0" name="perm_unlink" />
+		</record>
+		
+		<record id="rule_all_vp_group" model="ir.rule">
+			<field name="name">rule all vp group </field>
+			<field name="model_id" ref="rd_voucher_payment.model_voucher_payment" />
+			<field name="groups"
+				eval="[(4,ref('rd_voucher_payment.vp_approved')),(4,ref('rd_voucher_payment.vp_prepared')),(4,ref('rd_voucher_payment.vp_reviewes'))]" />
+			<field name="domain_force">[(1,'=',1)]</field>
+			<field eval="1" name="perm_read" />
+			<field eval="0" name="perm_create" />
+			<field eval="1" name="perm_write" />
+			<field eval="0" name="perm_unlink" />
+		</record>
+	</data>
+</odoo>

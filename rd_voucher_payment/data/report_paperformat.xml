@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- <record id="paperformat_bec_voucher_payment" model="report.paperformat">
+			<field name="name">Voucher Payment</field>
+			<field name="default" eval="True" />
+			<field name="format">A5</field>
+			<field name="orientation">Landscape</field>
+			<field name="margin_top">20</field>
+			<field name="margin_bottom">5</field>
+			<field name="margin_left">7</field>
+			<field name="margin_right">7</field>
+			<field name="header_line" eval="False" />
+			<field name="header_spacing">20</field>
+			<field name="dpi">90</field>
+		</record> -->
+
+		<record id="paperformat_rd_voucher_payment" model="report.paperformat">
+			<field name="name">Voucher Payment</field>
+			<field name="default" eval="True" />
+			<field name="format">A4</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">20</field>
+			<field name="margin_bottom">5</field>
+			<field name="margin_left">7</field>
+			<field name="margin_right">7</field>
+			<field name="header_line" eval="False" />
+			<field name="header_spacing">20</field>
+			<field name="dpi">90</field>
+		</record>
+
+	</data>
+</odoo>
