@@ -9,8 +9,7 @@
                     <header>
                         <button name="act_confirm" states="draft" string="Confirm" type="object" class="oe_highlight"/>
                         <button name="act_execute"
-                                attrs="{'invisible': [('is_shift', '=', True)]}"
-                                states="confirm" string="Execute" type="object" class="oe_highlight"/>
+                                attrs="{'invisible': ['|',('is_shift', '=', True), '&amp;', ('is_shift', '=', False),('state', '!=', 'confirm')]}" string="Execute" type="object" class="oe_highlight"/>
                         <button name="act_set_to_draft" states="confirm" string="Set to Draft" type="object" class="oe_highlight"/>
 
                         <field name="state" widget="statusbar" class="oe_highlight" statusbar_visible="draft,confirm"/>
