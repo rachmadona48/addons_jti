@@ -31,14 +31,15 @@ class dn_module_name(models.Model):
     def create_button_cek(self, aline):
         revisi_line_ids = {
             'revisi_absen_id': self.id,
-            'datetime': aline.name,
-            'date': aline.date,
-            'attendance_status': aline.attendance_status,
+            'nrp': aline.nrp,
+            'day': aline.day,
+            'check_in': aline.check_in,
+            'check_out': aline.check_out,
             'employee_id': aline.employee_id.id,
             'attendance_id': aline.id,
-            'backup_datetime': aline.name,
-            'backup_date': aline.date,
-            'backup_attendance_status': aline.attendance_status,
+            'backup_datetime_in': aline.check_in,
+            'backup_datetime_out': aline.check_out,
+            'backup_date': aline.day,
         }
         return revisi_line_ids
 
@@ -47,8 +48,8 @@ class dn_module_name(models.Model):
         for r in self:
             if r.revisi_line_ids:
                 r.revisi_line_ids.unlink()
-            draft_attendance = self.env['hr.draft.attendance']
-            domain = [('employee_id', 'in', r.employee_ids.ids),('date','<=', r.date_to),('date','>=', r.date_from)]
+            draft_attendance = self.env['hr.attendance']
+            domain = [('employee_id', 'in', r.employee_ids.ids),('day','<=', r.date_to),('day','>=', r.date_from)]
             stock_move = draft_attendance.search(domain)
             new_lines = self.env['dn.revisi.absen.revision.line']
             for line in stock_move:
@@ -64,11 +65,12 @@ class dn_module_name(models.Model):
             if r.state == 'close':
                 for line in r.revisi_line_ids:
                     if line.editable:
-                        line.attendance_id.write({'name': line.backup_datetime,
-                                    'date': line.backup_date,
-                                    'attendance_status': line.backup_attendance_status,
+                        line.attendance_id.write({
+                                    'day': line.backup_date,
+                                    'check_in': line.backup_datetime_in,
+                                    'check_out': line.backup_datetime_out,
                                     'editable': False,
-                                    'keterangan': line.keterangan, })
+                                    'keterangan': r.keterangan, })
                 r.state = 'cancel'
             else:
                 r.state = 'cancel'
@@ -88,58 +90,49 @@ class dn_module_name(models.Model):
         for r in self:
             for line in r.revisi_line_ids:
                 if line.editable:
-                    print(line.attendance_id.name,'aaa')
-                    line.attendance_id.write({'name': line.datetime,
-                                'date': line.date,
-                                'attendance_status': line.attendance_status,
-                                'editable': True,
-                                'moved': False,})
-                    print(line.attendance_id.name,'bbb')
+                    line.attendance_id.write({
+                                'day': line.day,
+                                'check_in': line.check_in,
+                                'check_out': line.check_out,
+                                'editable': True,})
             r.state = 'close'
 
 class dn_module_name_revision(models.Model):
     _name = 'dn.revisi.absen.revision.line'
 
     name = fields.Char('Name')
+    nrp = fields.Char('NRP')
     employee_id = fields.Many2one('hr.employee', string='Employee')
     datetime = fields.Datetime('Date and Time')
-    date = fields.Date('Date')
+    check_in = fields.Datetime('Check In')
+    check_out = fields.Datetime('Check Out')
+    day = fields.Date('Date')
     editable = fields.Boolean('Edited')
     attendance_status = fields.Selection([('sign_in', "Sign In"), ('sign_out', "Sign Out"), ('sign_none', "None"), ])
     revisi_absen_id = fields.Many2one('dn.revisi.absen', string='Revisi Id')
-    attendance_id = fields.Many2one('hr.draft.attendance', string='Attendance ID')
+    attendance_id = fields.Many2one('hr.attendance', string=' ')
+    attendance_id2 = fields.Many2one('hr.attendance.base', string='Attendance ID')
 
-    backup_datetime = fields.Datetime('Date and Time')
-    backup_date = fields.Date('Date')
+    backup_datetime_in = fields.Datetime('Backup Check In')
+    backup_datetime_out = fields.Datetime('Backup Check Out')
+    backup_date = fields.Date('Back up Date')
     backup_attendance_status = fields.Selection([('sign_in', "Sign In"), ('sign_out', "Sign Out"), ('sign_none', "None"), ])
 
-    @api.onchange('datetime')
-    def onchange_datetime(self):
-        for r in self:
-            if r.datetime:
-                r.date = r.datetime
-            if not r.editable:
-                r.editable = True
 
-    @api.onchange('date')
+    @api.onchange('day','check_in','check_out')
     def onchange_date(self):
         for r in self:
             if not r.editable:
                 r.editable = True
 
-    @api.onchange('attendance_status')
-    def onchange_attendance_status(self):
-        for r in self:
-            if not r.editable:
-                r.editable = True
+# class AttendanceBase(models.Model):
+#     _inherit = 'hr.attendance.base'
+#
+#     editable = fields.Boolean('Editable')
+#     keterangan = fields.Char('Keterangan')
 
 class Attendance(models.Model):
-    _inherit = 'hr.draft.attendance'
-
-    editable = fields.Boolean('Editable')
-    keterangan = fields.Char('Keterangan')
-
-class AttendanceBase(models.Model):
     _inherit = 'hr.attendance'
 
+    editable = fields.Boolean('Editable')
     keterangan = fields.Char('Keterangan')

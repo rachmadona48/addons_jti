@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['hr_attendance_zktecho','hr_attendance'],
+    'depends': ['hr_attendance_zktecho','hr_attendance','mcs_hr_attendance_report'],
 
     # always loaded
     'data': [

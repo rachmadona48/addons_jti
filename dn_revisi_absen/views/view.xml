@@ -36,11 +36,12 @@
                         <page string="Line Details">
                             <field name="revisi_line_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
                               <tree string="Line Detail" editable="bottom" create="0">
-                                  <field name="datetime" />
-                                  <field name="date"/>
-                                  <field name="attendance_status" />
+                                  <field name="attendance_id" invisible="1" options="{'no_create': True, 'no_open': True}" readonly="1" force_save="1"/>
+                                  <field name="day" />
+                                  <field name="check_in"/>
+                                  <field name="check_out"/>
                                   <field name="employee_id" options="{'no_create': True, 'no_open': True}" readonly="1"/>
-                                  <field name="editable" invisible="1"/>
+                                  <field name="editable" invisible="0"/>
                               </tree>
                           </field>
                         </page>
