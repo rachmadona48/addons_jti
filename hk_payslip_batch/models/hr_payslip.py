@@ -6,7 +6,7 @@ import collections
 class Inherit_hk_payslip_batch(models.Model):
     _inherit = 'hr.payslip.run'
 
-    invoice_id = fields.Many2one(comodel_name='account.invoice', string="Invoice")
+    invoice_id = fields.Many2one(comodel_name='account.invoice', string="Vendor Bill")
     spk_id = fields.Many2one(comodel_name='purchase.order', string="SPK")
     type = fields.Selection([('internal', 'Internal'),('outsourcing', 'Outsourcing')], default='internal')
 
@@ -84,7 +84,7 @@ class Inherit_hk_payslip_batch(models.Model):
             # else:
             #     ar = self.env['ir.property'].with_context(force_company=self.env.user.company_id.id).get('property_account_receivable_id', 'res.partner')
             #     ar = ar.id
-            invoice = self.env['account.invoice'].create({
+            invoice = self.env['account.invoice'].sudo().create({
                 'name': self.name,
                 'origin': self.name,
                 'type': 'in_invoice',
