@@ -11,13 +11,28 @@
                 <xpath expr="//button[@name='draft_payslip_run']" position="before">
                     <button string="Confirm Payslip" name="act_confirm" type="object" states="draft"
                             class="oe_highlight"/>
+
+                    <button string="Create Bill" name="act_create_invoice" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': ['|', ('type', '=', 'outsourcing'), ('invoice_id', '!=', False)]}"/>
+                    <button string="Create SPK" name="act_create_spk" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': ['|', ('type', '=', 'internal'), ('spk_id', '!=', False)]}"/>
+
                     <button string="Create Bill" name="act_create_invoice" type="object" states="draft"
                             class="oe_highlight"/>
+                  
                 </xpath>
 
                 <xpath expr="//field[@name='credit_note']" position="after">
+                    <field name="type"/>
                     <field name="invoice_id" readonly="1" force_save="1"
-                           options="{'no_create': True}"/>
+                           options="{'no_create': True}"
+                            attrs="{'invisible': ['|', ('type', '=', 'outsourcing'), ('invoice_id', '=', False)]}"/>
+
+                    <field name="spk_id" readonly="1" force_save="1"
+                           options="{'no_create': True}"
+                            attrs="{'invisible': ['|', ('type', '=', 'internal'), ('spk_id', '=', False)]}"/>
                 </xpath>
             </field>
         </record>
