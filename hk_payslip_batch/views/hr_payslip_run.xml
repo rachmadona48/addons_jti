@@ -19,8 +19,8 @@
                             class="oe_highlight"
                             attrs="{'invisible': ['|', ('type', '=', 'internal'), ('spk_id', '!=', False)]}"/>
 
-                    <button string="Create Bill" name="act_create_invoice" type="object" states="draft"
-                            class="oe_highlight"/>
+                    <!-- <button string="Create Bill" name="act_create_invoice" type="object" states="draft"
+                            class="oe_highlight"/> -->
                   
                 </xpath>
 

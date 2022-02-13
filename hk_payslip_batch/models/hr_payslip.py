@@ -97,7 +97,7 @@ class Inherit_hk_payslip_batch(models.Model):
 
     @api.multi
     def act_create_spk(self):
-
+        print("buat spk")
         invoice_line_ids = self.get_data('outsourcing')
         if invoice_line_ids:
             no_vendor = self.env['res.partner'].search([('id', '=', 15501)])
@@ -123,6 +123,6 @@ class Inherit_hk_payslip_batch(models.Model):
                 'order_line': invoice_line_ids
                 # 'picking_type_id': picking.id,
             }
-            purchase_order = purchase_obj.create(po_vals)
+            purchase_order = purchase_obj.sudo().create(po_vals)
             self.spk_id = purchase_order.id
 
