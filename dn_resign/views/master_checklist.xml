@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+       <record id="inherit_view_bi_hr_exit" model="ir.ui.view">
+            <field name="name">inherit_view_bi_hr_exit</field>
+            <field name="model">checklist.information</field>
+			<field name="inherit_id" ref="bi_hr_exit_process.view_checklist_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='remarks']" position="after">
+					<field name="type_transaksi"/>
+				</xpath>
+			</field>
+		</record>
+    </data>
+
+	<record id="action_master_checklist_keluar" model="ir.actions.act_window">
+	  <field name="name">Checklist</field>
+	  <field name="type">ir.actions.act_window</field>
+	  <field name="res_model">exit.checklist</field>
+	  <field name="view_type">form</field>
+	  <field name="view_mode">tree,form</field>
+	  <field name="help" type="html">
+	   <p class="oe_view_nocontent_create"> </p>
+	   <p></p>
+	  </field>
+	</record>
+
+	<menuitem action="action_master_checklist_keluar" id="menu_master_checklist_1" parent="bi_hr_exit_process.sub_menu_employee_exit" name="Master Checklist" sequence="299" />
+</odoo>
