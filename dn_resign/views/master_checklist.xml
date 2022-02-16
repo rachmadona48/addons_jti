@@ -6,7 +6,7 @@
             <field name="model">checklist.information</field>
 			<field name="inherit_id" ref="bi_hr_exit_process.view_checklist_form" />
 			<field name="arch" type="xml">
-				<xpath expr="//fields[@name='remarks']" position="after">
+				<xpath expr="//field[@name='remarks']" position="after">
 					<field name="type_transaksi"/>
 				</xpath>
 			</field>
