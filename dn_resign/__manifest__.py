@@ -28,6 +28,7 @@
         'views/views.xml',
         'views/templates.xml',
         'views/master_checklist.xml',
+        'views/exit_request.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

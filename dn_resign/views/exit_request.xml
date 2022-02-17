@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+       <record id="view_exit_req_form" model="ir.ui.view">
+            <field name="name">inherit_view_exit_req_form</field>
+            <field name="model">exit.request</field>
+			<field name="inherit_id" ref="bi_hr_exit_process.view_exit_req_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='req_date']" position="before">
+					<field name="type_transaksi"/>
+				</xpath>
+			</field>
+		</record>
+    </data>
+
+</odoo>
