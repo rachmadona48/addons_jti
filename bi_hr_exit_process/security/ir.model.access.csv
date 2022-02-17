@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_exit_request,access.exit.request,bi_hr_exit_process.model_exit_request,,1,1,1,1
+access_checklist_information,access.checklist.information,bi_hr_exit_process.model_checklist_information,,1,1,1,1
+access_exit_checklist,access.exit.checklist,bi_hr_exit_process.model_exit_checklist,,1,1,1,1
+access_exit_checklist_line,access.exit.checklist.line,bi_hr_exit_process.model_exit_checklist_line,,1,1,1,1
