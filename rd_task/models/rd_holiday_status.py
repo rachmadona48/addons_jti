@@ -10,8 +10,8 @@ class RdHolidaysType(models.Model):
     
     gender = fields.Selection(selection=[('male', 'Male'),('female', 'Female')],string='Jenis Kelamin',
                                    required=False)
-    som_nonsom = fields.Selection(selection=[('SOM', 'SOM'),('NON SOM', 'NON SOM')],string='SOM/NON SOM',
-                                   required=False)
+    # som_nonsom = fields.Selection(selection=[('SOM', 'SOM'),('NON SOM', 'NON SOM')],string='SOM/NON SOM',
+    #                                required=False)
     status_karyawan = fields.Selection(selection=[('KONTRAK OFFICE', 'KONTRAK OFFICE'),
                                                   ('TETAP', 'TETAP'),
                                                   ('MAGANG', 'MAGANG'),
@@ -24,3 +24,5 @@ class RdHolidaysType(models.Model):
     month_service = fields.Float(string="Month Of Service",digits=(3,0))
     # line_hr_leave = fields.One2many(comodel_name='line.hr.employee.leave', inverse_name='hr_hr_holidays_status_id',
     #                             ondelete='set null')
+    # agama2 = fields.Selection(selection=[('islam', 'Islam'), ('hindu', 'Hindu'), ('kristen', 'Kristen'),('katolik', 'Katolik'), 
+    # ('kristen protestan', 'Kristen Protestan'), ('kong hu cu', 'KONG HU CU')],string='Agama')
