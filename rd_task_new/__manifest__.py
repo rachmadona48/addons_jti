@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "rd_task",
+    'name': "rd_task_new",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,15 +20,16 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr','hr_timesheet', 'hr_holidays','employee_kra', 'hr_recruitment', 'hr_employee_custom','to_hr_recruitment_request', 'dashboard'],
+    'depends': ['base','hr_holidays','project_timesheet_holidays'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        #'views/views.xml',
-        #'views/templates.xml',
-        'views/rd_holiday_status.xml',
-        'views/rd_hr_employee.xml',
+        'views/views.xml',
+        'views/templates.xml',
+        'views/holiday_status.xml',
+        'views/hr_employee.xml'
+
     ],
     # only loaded in demonstration mode
     'demo': [

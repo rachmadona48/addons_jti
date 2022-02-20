@@ -7,9 +7,11 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="LEAVE">
+                    <button name="create_leave_allocation" string="Create Leave Allocation" type="object" class="oe_highlight"/>
                     <field name="rd_line_hr">
                         <tree string="Leave" editable="bottom">
                             <field name="name"/>
+                            <field name="number_of_days_temp"/>
                         </tree>
                     </field>
                 </page>
