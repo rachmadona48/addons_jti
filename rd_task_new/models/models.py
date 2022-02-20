@@ -2,8 +2,8 @@
 
 from odoo import models, fields, api
 
-# class rd_task(models.Model):
-#     _name = 'rd_task.rd_task'
+# class rd_task_new(models.Model):
+#     _name = 'rd_task_new.rd_task_new'
 
 #     name = fields.Char()
 #     value = fields.Integer()
