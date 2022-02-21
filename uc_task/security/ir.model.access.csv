@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_uc_task_uc_task,uc_task.uc_task,model_uc_task_uc_task,,1,0,0,0
