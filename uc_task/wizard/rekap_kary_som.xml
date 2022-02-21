@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="uc_karyawan_som_wizard_form">
+            <field name="name">uc.karyawan.som.wizard.form</field>
+            <field name="model">uc.karyawan.som.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="from_date" attrs="{'invisible': [('xls_state', '!=', 'select')]}"/>
+                            <field name="to_date" attrs="{'invisible': [('xls_state', '!=', 'select')]}"/>
+                            <field name="employee_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,'no_edit':True,'no_open':True}"
+                                   required="1" attrs="{'invisible': [('xls_state', '!=', 'select')]}"/>
+                            <field name="filter_status_by" widget="radio" invisible='1'/>
+                            <field name="xls_state" invisible="1"/>
+                            <field name="xls_filename" invisible="1"/>
+                            <field name="xls_file" filename="xls_filename" readonly="1" class="btn btn-primary"
+                                   style="color: white !important;"
+                                   attrs="{'invisible': [('xls_state', '!=', 'download')]}"/>
+                        </group>
+                        <footer>
+                            <button name="print_kary_som_pdf"
+                                    string="PRINT Pdf"
+                                    type="object"
+                                    class="btn btn-primary"/>
+                            <button string="CLOSE"
+                                    class="highlight"
+                                    special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="uc_karyawan_som_wizard_action">
+            <field name="name">Rekap Karyawan SOM</field>
+            <field name="res_model">uc.karyawan.som.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="uc_karyawan_som_wizard_form"/>
+        </record>
+
+        <menuitem id="uc_karyawan_som_wizard_report"
+                  name="Rekap Karyawan SOM Report"
+                  parent="hr_attendance.menu_hr_attendance_manage_attendances"
+                  action="uc_karyawan_som_wizard_action"
+                  sequence="101"/>
+    </data>
+</odoo>
