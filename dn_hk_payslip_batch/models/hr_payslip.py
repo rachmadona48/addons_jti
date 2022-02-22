@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api,_
+from odoo.exceptions import UserError, AccessError
 from odoo.addons import decimal_precision as dp
 import collections
 
@@ -10,14 +11,20 @@ class dn_hk_Hr_Payslip(models.Model):
     total_thp = fields.Float(string='Total', digits=dp.get_precision('Payroll'), store=True)
 
     def compute_sheet(self):
-        rtn = super(dn_hk_Hr_Payslip, self).compute_sheet()
         for dt in self:
+            cek_payslip_sama = self.env['hr.payslip'].sudo().search([('id', '!=', int(dt.id)),('employee_id', '=', int(dt.employee_id)),('struct_id', '=', int(dt.struct_id)),('state', 'in', ['verify','done']),('date_from', '>=', dt.date_from),('date_to', '<=', dt.date_to)])
+            if len(cek_payslip_sama)>=1:
+                for cp in cek_payslip_sama:
+                    raise UserError(_('Payslip '+str(dt.employee_id.name)+' is duplicate with '+str(cp.number)))
+
             line = dt.line_ids.filtered(lambda r: r.code == 'THP')
             if line:
                 total_thp = line.total
             else:
                 total_thp = 0
             dt.total_thp = total_thp
+        # exit()
+        rtn = super(dn_hk_Hr_Payslip, self).compute_sheet()
         return rtn
 
 class dn_hk_payslip_batch(models.Model):
