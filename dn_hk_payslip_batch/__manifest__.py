@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "hk_payslip_batch",
+    'name': "dn_hk_payslip_batch",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -25,7 +25,9 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        # 'views/hr_payslip_run.xml',
+        'views/views.xml',
+        'views/templates.xml',
+        'views/hr_payslip.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
