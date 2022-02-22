@@ -1,14 +1,37 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.addons import decimal_precision as dp
 import collections
 
-class Inherit_hk_payslip_batch(models.Model):
+class dn_hk_Hr_Payslip(models.Model):
+    _inherit = 'hr.payslip'
+
+    total_thp = fields.Float(string='Total', digits=dp.get_precision('Payroll'), store=True)
+
+    def compute_sheet(self):
+        rtn = super(dn_hk_Hr_Payslip, self).compute_sheet()
+        for dt in self:
+            line = dt.line_ids.filtered(lambda r: r.code == 'THP')
+            if line:
+                total_thp = line.total
+            else:
+                total_thp = 0
+            dt.total_thp = total_thp
+        return rtn
+
+class dn_hk_payslip_batch(models.Model):
     _inherit = 'hr.payslip.run'
 
     invoice_id = fields.Many2one(comodel_name='account.invoice', string="Vendor Bill")
     spk_id = fields.Many2one(comodel_name='purchase.order', string="SPK")
     type_slip = fields.Selection([('internal', 'Internal'),('outsourcing', 'Outsourcing')], default='internal')
+
+    def _get_total_payslip(self):
+        for dt in self:
+            dt.total_slip = len(dt.slip_ids)
+        
+    total_slip = fields.Float(string='Total PaySlip',compute='_get_total_payslip')
 
     @api.multi
     def act_confirm(self):
@@ -126,3 +149,4 @@ class Inherit_hk_payslip_batch(models.Model):
             purchase_order = purchase_obj.sudo().create(po_vals)
             self.spk_id = purchase_order.id
 
+    
