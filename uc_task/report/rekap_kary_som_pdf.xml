@@ -31,313 +31,336 @@
         <template id="temp_report_rekap_kary_som_pdf">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="web.internal_layout">
-                        <div class="page">
-                            <style type="text/css">
-                                #sidebar-left{
-                                float:left;
-                                width:50%;
-                                }
-                                #sidebar-right{
-                                float:right;
-                                width:50%;
-                                }
+                    <t t-foreach="o.get_data2()" t-as="emp">
+                        <t t-call="web.internal_layout"> 
+                            <div class="page">
+                                <style type="text/css">
+                                    #sidebar-left{
+                                    float:left;
+                                    width:50%;
+                                    }
+                                    #sidebar-right{
+                                    float:right;
+                                    width:50%;
+                                    }
 
-                                table.table1 {
-                                border: 1px solid #000000;
-                                width: 100%; margin:0 auto;
-                                padding :3px;
-                                }
+                                    table.table1 {
+                                    border: 1px solid #000000;
+                                    width: 100%; margin:0 auto;
+                                    padding :3px;
+                                    }
 
-                                .table1 td {
-                                vertical-align: center;
-                                border: 1px solid #000000;
-                                padding :3px;
-                                }
-                                .table1 td2 {
-                                vertical-align: center;
-                                border: 1px;
-                                padding :3px;
-                                }
+                                    .table1 td {
+                                    vertical-align: center;
+                                    border: 1px solid #000000;
+                                    padding :3px;
+                                    }
+                                    .table1 td2 {
+                                    vertical-align: center;
+                                    border: 1px;
+                                    padding :3px;
+                                    }
 
-                                .table1 th{
-                                background-color : #e3e3e3;
-                                border: 1px solid #000000;
-                                padding :3px;
-                                }
+                                    .table1 th{
+                                    background-color : #e3e3e3;
+                                    border: 1px solid #000000;
+                                    padding :3px;
+                                    }
 
-                                table.table2 {
-                                border: 1px;
-                                width: 100%; margin:0 auto;
-                                padding :3px;
-                                }
+                                    table.table2 {
+                                    border: 1px;
+                                    width: 100%; margin:0 auto;
+                                    padding :3px;
+                                    }
 
-                                .table2 td {
-                                padding :3px;
-                                }
-                                .table2 th {
-                                padding :3px;
-                                }
-                                .twid40{
-                                width: 40%;
-                                }
-                                .twid2{
-                                width: 2%;
-                                }
-                                .twid30{
-                                width: 30%;
-                                }
-                                .twid32{
-                                width: 32%;
-                                }
-                                .twid5{
-                                width: 5%;
-                                }
-                            </style>
+                                    .table2 td {
+                                    padding :3px;
+                                    }
+                                    .table2 th {
+                                    padding :3px;
+                                    }
+                                    .twid40{
+                                    width: 40%;
+                                    }
+                                    .twid2{
+                                    width: 2%;
+                                    }
+                                    .twid30{
+                                    width: 30%;
+                                    }
+                                    .twid32{
+                                    width: 32%;
+                                    }
+                                    .twid5{
+                                    width: 5%;
+                                    }
+                                </style>
 
-                            <div class="oe_structure"/>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <h5 class="text-left mb32">LAPORAN PER PERIODE KEHADIRAN KARYAWAN SOM</h5>
+                                <div class="oe_structure"/>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h5 class="text-left mb32">LAPORAN PER PERIODE KEHADIRAN KARYAWAN SOM</h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-4" style="width: 15%;">Login ID:</div>
-                                <div class="col-xs-4"><t/></div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-xs-4" style="width: 15%;">Login ID:</div>
+                                    <div class="col-xs-4">
+                                        <t t-esc="emp['emp_nrp']"/>
+                                    </div>
+                                </div>
 
-                            <div class="row">
-                                <div class="col-xs-4" style="width: 15%;">NRP:</div>
-                                <div class="col-xs-4"><t/></div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-xs-4" style="width: 15%;">NRP:</div>
+                                    <div class="col-xs-4">
+                                        <t t-esc="emp['emp_nrp']"/>
+                                    </div>
+                                </div>
 
-                            <div class="row">
-                                <div class="col-xs-4" style="width: 15%;">Employee</div>
-                                <div class="col-xs-4"><t/></div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-xs-4" style="width: 15%;">Employee</div>
+                                    <div class="col-xs-4">
+                                        <t t-esc="emp['employee_name']"/>
+                                    </div>
+                                </div>
 
-                            <div class="row">
-                                <div class="col-xs-4" style="width: 15%;">Department</div>
-                                <div class="col-xs-4"><t/></div>
+                                <div class="row">
+                                    <div class="col-xs-4" style="width: 15%;">Department</div>
+                                    <div class="col-xs-4">
+                                        <t t-esc="emp['emp_department']"/>
+                                    </div>
 
-                                <div class="col-xs-2" style="width: 12%;">Periode: </div>
-                                <div class="col-xs-4"><t/> - <t/></div>
-                            </div>
+                                    <div class="col-xs-2" style="width: 12%;">Periode: </div>
+                                    <div class="col-xs-4">
+                                        <t t-esc="datetime.datetime.strptime(emp['start_date'], '%Y-%m-%d').strftime('%d/%m/%Y')"/> - <t t-esc="datetime.datetime.strptime(emp['end_date'], '%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                                    </div>
+                                </div>
 
-                            <table class="table table-bordered" style="table-layout:auto">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" rowspan="2" style="padding: 2px;">
-                                            <strong>Tanggal</strong>
-                                        </th>
-                                        <th class="text-center" colspan="2" style="padding: 2px;">
-                                            <strong>Jadwal</strong>
-                                        </th>
-                                        <th class="text-center" colspan="2" style="padding: 2px;">
-                                            <strong>Jam Kerja Aktual</strong>
-                                        </th>
-                                        <th class="text-center" colspan="2" style="padding: 2px;">
-                                            <strong>Ket. Masuk</strong>
-                                        </th>
-                                        <th class="text-center" colspan="2" style="padding: 2px;">
-                                            <strong>Ket. Pulang</strong>
-                                        </th>
-                                        <th class="text-center" rowspan="2" style="padding: 2px;">
-                                            <strong>Jml Jam Kerja</strong>
-                                        </th>
-                                        <th class="text-center" rowspan="2" style="padding: 2px;">
-                                            <strong>POIN</strong>
-                                        </th>
-                                        <th class="text-center" rowspan="2" style="padding: 2px;">
-                                            <strong>Keterangan</strong>
-                                        </th>
-                                    </tr>
-
-                                    <tr>
-                                        <th class="text-center" style="padding: 2px;">
-                                            <strong>Masuk</strong>
-                                        </th>
-                                        <th class="text-center" style="padding: 2px;">
-                                            <strong>Pulang</strong>
-                                        </th>
-                                        <th class="text-center" style="padding: 2px;">
-                                            <strong>Masuk</strong>
-                                        </th>
-                                        <th class="text-center" style="padding: 2px;">
-                                            <strong>Pulang</strong>
-                                        </th>
-                                        <th class="text-center" style="padding: 2px;">
-                                            <strong>Cepat</strong>
-                                        </th>
-                                        <th class="text-center" style="padding: 2px;">
-                                            <strong>Telat</strong>
-                                        </th>
-                                        <th class="text-center" style="padding: 2px;">
-                                            <strong>Cepat</strong>
-                                        </th>
-                                        <th class="text-center" style="padding: 2px;">
-                                            <strong>Lebih</strong>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <t t-foreach="o.get_data()" t-as="data">
+                                <table class="table table-bordered" style="table-layout:auto">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center" style="padding: 2px;">
-                                                <span>
-                                                    <t t-esc="data['day']"/>
-                                                </span>
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                                <span>
-                                                    <t t-esc="data['masuk']"/>
-                                                </span>
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                                <span>
-                                                    <t t-esc="data['pulang']"/>
-                                                </span>
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                            </td>
-                                            <td class="text-center" style="padding: 2px;">
-                                            </td>
+                                            <th class="text-center" rowspan="2" style="padding: 2px;">
+                                                <strong>Tanggal</strong>
+                                            </th>
+                                            <th class="text-center" colspan="2" style="padding: 2px;">
+                                                <strong>Jadwal</strong>
+                                            </th>
+                                            <th class="text-center" colspan="2" style="padding: 2px;">
+                                                <strong>Jam Kerja Aktual</strong>
+                                            </th>
+                                            <th class="text-center" colspan="2" style="padding: 2px;">
+                                                <strong>Ket. Masuk</strong>
+                                            </th>
+                                            <th class="text-center" colspan="2" style="padding: 2px;">
+                                                <strong>Ket. Pulang</strong>
+                                            </th>
+                                            <th class="text-center" rowspan="2" style="padding: 2px;">
+                                                <strong>Jml Jam Kerja</strong>
+                                            </th>
+                                            <th class="text-center" rowspan="2" style="padding: 2px;">
+                                                <strong>POIN</strong>
+                                            </th>
+                                            <th class="text-center" rowspan="2" style="padding: 2px;">
+                                                <strong>Keterangan</strong>
+                                            </th>
                                         </tr>
-                                        <!--                                        </t>-->
-                                    </t>
-                                </tbody>
-                            </table>
 
-                            <div>
-                                <strong>Keterangan</strong>
+                                        <tr>
+                                            <th class="text-center" style="padding: 2px;">
+                                                <strong>Masuk</strong>
+                                            </th>
+                                            <th class="text-center" style="padding: 2px;">
+                                                <strong>Pulang</strong>
+                                            </th>
+                                            <th class="text-center" style="padding: 2px;">
+                                                <strong>Masuk</strong>
+                                            </th>
+                                            <th class="text-center" style="padding: 2px;">
+                                                <strong>Pulang</strong>
+                                            </th>
+                                            <th class="text-center" style="padding: 2px;">
+                                                <strong>Cepat</strong>
+                                            </th>
+                                            <th class="text-center" style="padding: 2px;">
+                                                <strong>Telat</strong>
+                                            </th>
+                                            <th class="text-center" style="padding: 2px;">
+                                                <strong>Cepat</strong>
+                                            </th>
+                                            <th class="text-center" style="padding: 2px;">
+                                                <strong>Lebih</strong>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="emp['list_att']" t-as="data">
+                                            <tr>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <span>
+                                                        <t t-esc="data['day']"/>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <span>
+                                                        <t t-esc="data['masuk']" t-options='{"widget": "float_time"}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <span>
+                                                        <t t-esc="data['pulang']" t-options='{"widget": "float_time"}'/>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <span>
+                                                        <t t-esc="data['check_in']"/>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <span>
+                                                        <t t-esc="data['check_out']"/>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <t t-esc="data['dtg_cepat']"/>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <t t-esc="data['dtg_telat']"/>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <t t-esc="data['plg_cepat']"/>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <t t-esc="data['plg_telat']"/>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <t t-esc="data['tt_jamker']"/>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <t t-esc="data['poin']"/>
+                                                </td>
+                                                <td class="text-center" style="padding: 2px;">
+                                                    <t t-esc="data['keterangan']"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+                                <div>
+                                    <strong>Keterangan</strong>
+                                </div>
+
+                                <div class="row" style="font-size: 12px;">
+                                    <div class="col-xs-3" style="padding-right: 5px;">
+                                        <div class="row">
+                                            <div class="col-xs-8">Jml Kehadiran:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Jml Hadir wkt Libur:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Total Kehadiran:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Total tdk Hadir:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Jml Alpha:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Tidak Absen Masuk:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-3" style="padding-right: 5px;">
+                                        <div class="row">
+                                            <div class="col-xs-8">Jml Dinas:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Jml Cuti:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Jml Ijin:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Jml Training:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Jml Sakit:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Tidak Absen Pulang:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-3" style="padding-right: 5px;">
+                                        <div class="row">
+                                            <div class="col-xs-8">Telat kurang dari 30 Menit:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Telat &gt; 30:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Total Telat Masuk:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Total Cepat Pulang:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Jumlah tdk Telat:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">Jumlah Penyimpangan:</div>
+                                            <div class="col-xs-4">0</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-3" style="padding-right: 5px;">
+                                        <div class="row">
+                                            <div class="col-xs-7">Jam Cepat Masuk:</div>
+                                            <div class="col-xs-5">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">Jam Telat Masuk:</div>
+                                            <div class="col-xs-5">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">Jam Cepat Pulang:</div>
+                                            <div class="col-xs-5">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">Jam Lebih Pulang:</div>
+                                            <div class="col-xs-5">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">Jumlah Jam Kerja:</div>
+                                            <div class="col-xs-5">0</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">Penyimpangan:</div>
+                                            <div class="col-xs-5">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="oe_structure"/>
                             </div>
-
-                            <div class="row" style="font-size: 12px;">
-                                <div class="col-xs-3" style="padding-right: 5px;">
-                                    <div class="row">
-                                        <div class="col-xs-8">Jml Kehadiran:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Jml Hadir wkt Libur:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Total Kehadiran:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Total tdk Hadir:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Jml Alpha:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Tidak Absen Masuk:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3" style="padding-right: 5px;">
-                                    <div class="row">
-                                        <div class="col-xs-8">Jml Dinas:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Jml Cuti:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Jml Ijin:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Jml Training:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Jml Sakit:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Tidak Absen Pulang:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3" style="padding-right: 5px;">
-                                    <div class="row">
-                                        <div class="col-xs-8">Telat kurang dari 30 Menit:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Telat &gt; 30:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Total Telat Masuk:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Total Cepat Pulang:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Jumlah tdk Telat:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">Jumlah Penyimpangan:</div>
-                                        <div class="col-xs-4">0</div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3" style="padding-right: 5px;">
-                                    <div class="row">
-                                        <div class="col-xs-7">Jam Cepat Masuk:</div>
-                                        <div class="col-xs-5">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-7">Jam Telat Masuk:</div>
-                                        <div class="col-xs-5">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-7">Jam Cepat Pulang:</div>
-                                        <div class="col-xs-5">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-7">Jam Lebih Pulang:</div>
-                                        <div class="col-xs-5">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-7">Jumlah Jam Kerja:</div>
-                                        <div class="col-xs-5">0</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-7">Penyimpangan:</div>
-                                        <div class="col-xs-5">0</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="oe_structure"/>
-                        </div>
-
+                        </t>
                     </t>
                 </t>
             </t>
