@@ -1,0 +1,201 @@
+<odoo>
+    <data>
+        <template id="report_print_vendor_bill">
+            <t t-call="web.internal_layout">
+                <t t-if="doc.type == 'in_invoice'">
+                    <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:12px;padding-left: 5px;">
+                        <tr>
+                        <td rowspan="4" width="170"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                            <img class="image" alt="Library Card"
+                                t-att-src="'data:image/png;base64,%s' % to_text(res_company.logo)"
+                                style="max-width:5.5cm; margin:10px;"/>
+                        </td>
+                        <td rowspan="4" width="435"  style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                            <p style="text-align: center;">
+                                <strong>PERMINTAAN PEMBAYARAN</strong>
+                            </p>
+                        </td>
+                        <td width="85" style="font-family: Arial; border: 1px solid #000; font-size: 13px;padding-left: 5px;">
+                            <p>No. Dok</p>
+                        </td>
+                        <td width="76" style="font-family: Arial; border: 1px solid #000; font-size: 13px;padding-left: 5px;">
+
+                        </td>
+                        </tr>
+                        <tr>
+                            <td width="85" style="font-family: Arial; border: 1px solid #000; font-size: 13px;padding-left: 5px;">
+                                <p>Ref</p>
+                            </td>
+                            <td width="76" style="font-family: Arial; border: 1px solid #000; font-size: 13px;padding-left: 5px;">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="85" style="font-family: Arial; border: 1px solid #000; font-size: 13px;padding-left: 5px;">
+                                <p>Revisi</p>
+                            </td>
+                            <td width="76" style="font-family: Arial; border: 1px solid #000; font-size: 13px;padding-left: 5px;">
+                                <p>Original</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="85" style="font-family: Arial; border: 1px solid #000; font-size: 13px;padding-left: 5px;">
+                                <p>Tanggal</p>
+                            </td>
+                            <td width="76" style="font-family: Arial; border: 1px solid #000; font-size: 13px;padding-left: 5px;">
+                                <span t-field="doc.date_invoice"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:12px;">
+                        <tr>
+                            <td width="100%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;padding-left: 5px;">
+                                <p>Department : <span t-field="doc.branch_id.name"/>, Tanggal : <span t-field="doc.date_invoice"/></p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:12px;">
+                        <tr>
+                            <td rowspan="4" width="100%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;padding-left: 5px;">
+                                <p>Pembayaran Kepada : <span t-field="doc.partner_id.name"/></p>
+                                <p>Keterangan Pembayaran : <span t-field="doc.description_invoice"/></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:12px;">
+                        <tr>
+                            <th colspan="1" width="35%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <center><b>HUTANG</b></center>
+                            </th>
+                            <th colspan="2" width="30%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <center><b>TDP/PTDP</b></center>
+                            </th>
+                            <th colspan="1" width="30%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <center><b>Bon Pembayaran</b></center>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td width="35%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;padding-left: 5px;">
+                                <p>No Pemb. Hutang : <span t-field="doc.name"/></p>
+                                <p>Kode Supplier : <span t-field="doc.partner_id.name"/></p>
+                            </td>
+                            <td width="15%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;padding-left: 5px;">
+                                <p>No : </p>
+                                <p>Nama Pengguna : </p>
+                                <p>Tgl Jatuh Tempo : </p>
+                            </td>
+                            <td width="15%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;padding-left: 5px;">
+                                <p>No : </p>
+                                <p>No TDP : </p>
+                                <p>Lebih (Kurang) : <span t-field="doc.residual"/></p>
+                            </td>
+                            <td width="30%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;padding-left: 5px;">
+                                <p>No : </p>
+                                <p>Nama Pengguna : </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:12px;">
+                        <tr>
+                            <td width="50%"   style="font-family: Arial; border: 0px solid #000; font-size: 12px;padding-left: 5px;">
+                                <p>Mata Uang : <span t-field="doc.currency_id"/></p>
+                                <p>Kurs : </p>
+                            </td>
+                            <td width="50%"   style="font-family: Arial; border: 0px solid #000; font-size: 12px;padding-left: 5px;">
+                                <p>Total Nilai : <span t-field="doc.amount_total"/></p>
+                                <p>Terbilang : </p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-responsive">
+                        <thead style="border: 1px solid black;">
+                            <th colspan="7"><center>Perincian Transaksi</center></th>
+                        </thead>
+                        <thead style="border: 1px solid black;">
+                            <th>No</th>
+                            <th>Keterangan</th>
+                            <th>Proyek</th>
+                            <th>Jumlah</th>
+                        </thead>
+                        <t t-set="index" t-value="1"/>
+                        <tr t-foreach="doc.invoice_line_ids" t-as="line" style="border: 1px solid black;">
+                            <td><span t-esc="index"/></td>
+                            <td><span t-field="line.name" /></td>
+                            <td><span t-field="line.account_analytic_id.name" /></td>
+                            <td><span t-field="line.price_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></td>
+                            <t t-set="index" t-value="index+1"/>
+                        </tr>
+                    </table>
+                    <table width="100%"  style="font-family: Arial;font-size:14px;border: 1px solid #000;">
+                        <tr>
+                            <td width="40%">
+                            </td>
+                            <td width="30%">
+                                <th>Jumlah</th>
+                            </td>
+                            <td>
+                                <th><span t-field="doc.amount_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></th>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:12px;">
+                        <tr>
+                            <th colspan="1" width="25%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <center><b>Dibuat</b></center>
+                            </th>
+                            <th colspan="1" width="25%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <center><b>Diperiksa</b></center>
+                            </th>
+                            <th colspan="1" width="25%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <center><b>Disetujui</b></center>
+                            </th>
+                            <th colspan="1" width="25%"   style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <center><b>Keterangan</b></center>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="font-family: Arial; border: 1px solid #000; font-size: 12px;" >
+                                <br/><br/><br/><br/><br/>
+                                <center>Admin Departemen</center>
+                            </td>
+                            <td style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <br/><br/><br/><br/><br/>
+                                <center>Manager Departemen</center>
+                            </td>
+                            <td style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <br/><br/><br/><br/><br/>
+                                <center>General Manager</center>
+                            </td>
+                            <td style="font-family: Arial; border: 1px solid #000; font-size: 12px;">
+                                <br/><br/><br/><br/><br/>
+                                <center>Kepala Bagian Keuangan</center>
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_vendor_bill">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="dn_invoice_print_out.report_print_vendor_bill"/>
+                </t>
+            </t>
+
+        </template>
+         <report
+            id="action_report_vendor_bill"
+            string="Vendor Bill"
+            model="account.invoice"
+            report_type="qweb-html"
+            file="dn_invoice_print_out.report_vendor_bill"
+            name="dn_invoice_print_out.report_vendor_bill"
+            menu="1"/>
+
+    </data>
+</odoo>
