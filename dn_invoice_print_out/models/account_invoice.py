@@ -14,6 +14,7 @@ from odoo.tools import float_is_zero, float_compare, pycompat
 from odoo.tools.misc import formatLang
 
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
+from odoo.http import request
 
 
 
@@ -31,3 +32,11 @@ class dn_AccountInvoice(models.Model):
             if dt.type == 'out_invoice':
                 dt.no_per_pembayaran = self.env['ir.sequence'].next_by_code('permohonan.pembayaran')
         return res
+
+    def _get_label(self):
+        # print(self.id,' id nya =========================')
+        ail = request.env['account.invoice.line'].sudo().search([('invoice_id', '=', int(self.id))],order='id asc', limit=1)
+       
+        return {
+            'label': ail.name,
+        }

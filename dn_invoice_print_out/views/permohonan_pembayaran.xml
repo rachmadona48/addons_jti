@@ -29,14 +29,12 @@
                                 <center><p>Perihal : Permintaan Pembayaran <span t-field="doc.progress_bill_title"/></p></center>
                             </div>
                             <div class="row">
+                                <t t-set="lbl" t-value="doc._get_label()"/>
                                 <p>Dengan Hormat,</p>
-                                <p class="text-align">Sehubungan dengan Paket Pekerjaan Konstruksi Penguatan Nasional Data Center Berstandar 
-                                Internasional sesuai dengan Surat Perjanjian No : PERJ.2000/PPK/PL.03.01/06/2021 tanggal 18 Juni 2021 dan 
-                                Addendum ke-1 Nomor : PERJ.4341/PPK/PL.03.01/10/2021 tanggal 1 Oktober 2021, Addendum ke-2 Nomor : PERJ.6700/PPK/PL.03.01/12/2021 
-                                tanggal 8 Desember 2021, BAPP No : BA.7330/PPK/PL.03.01/12/2021 tanggal 20 Desember 2021, 
-                                BAP No : BA.7331/BSSN/PPK/PL.03.01/12/2021 tanggal 20 Desember 2021    bersama ini kami mengajukan 
-                                permintaan pembayaran Termin 4  sebesar Rp. 31.742.334.940,- (terbilang : Tiga puluh satu milyar tujuh 
-                                ratus empat puluh dua juta tiga ratus tiga puluh empat ribu sembilan ratus empat puluh rupiah) Inc PPN.</p>
+                                <p class="text-align">Sehubungan dengan Paket <span t-esc="lbl['label']"/>    
+                                bersama ini kami mengajukan 
+                                permintaan pembayaran <span t-field="doc.progress_bill_title"/>  sebesar <b><span t-field="doc.amount_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></b> 
+                                (terbilang : <span t-field="doc.amount_terbilang_invoice" />)</p>
                             </div>
                             <div class="row">
                                 <p>Kami mohon agar pembayarannya ditransfer ke rekening kami di : <br/>
