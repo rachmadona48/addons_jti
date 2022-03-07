@@ -12,7 +12,7 @@
                     </td>
                     <td rowspan="4" width="435"  style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
                         <p style="text-align: center;">
-                            <strong>KWITANSI </strong><br/>
+                            <!-- <strong>KWITANSI </strong><br/> -->
                             <strong>INVOICE </strong></p>
                     </td>
                     <td width="85" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
@@ -257,7 +257,7 @@
         </template>
          <report
             id="action_report_invoice_kwitansi"
-            string="Kwitansi Invoice"
+            string="Print Invoice"
             model="account.invoice"
             report_type="qweb-html"
             file="dn_invoice_print_out.report_kwitansi_invoice_template"
