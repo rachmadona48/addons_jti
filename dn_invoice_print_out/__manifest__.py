@@ -24,13 +24,15 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'data/data.xml',
+        'data/seq_peringatan_satu.xml',
         'views/kwintansi_pembayaran.xml',
         'views/templates.xml',
         'views/vendor_bill.xml',
         'views/account_invoice.xml',
         'views/permohonan_pembayaran.xml',
+        'views/peringatan_satu.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
