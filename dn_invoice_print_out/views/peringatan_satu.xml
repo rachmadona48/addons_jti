@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+        <record id="view_peringatan_satu_wizard"
+			model="ir.ui.view">
+			<field name="name">form.peringatan.satu.wizard</field>
+			<field name="model">peringatan.satu.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Create Peringatan 1">
+					<group>
+						<field name="date" />
+						<field name="bank_id" />
+					</group>
+					<footer>
+						<button string='Create' name="create_peringatan_satu"
+							type="object" class="btn-primary" />
+						<button string="Cancel" class="btn-secondary"
+							special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<act_window id="action_peringatan_satu_wizard"
+			name="Create Peringatan 1" res_model="peringatan.satu.wizard"
+			src_model="account.invoice" view_mode="form" multi="True"
+			target="new" key2="client_action_multi" />
+
+        <record id="view_peringatan_satu_form" model="ir.ui.view">
+			<field name="name">Peringatan Satu</field>
+			<field name="model">peringatan.satu</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="button_validate" states="draft"
+							string="Validate" type="object"
+							confirm="Are you sure you want to do this?" class="oe_highlight" />
+
+						<button name="button_cancel" states="draft,validate" string="Cancel" 
+							type="object" confirm="Are you sure you want to Cancel?" />
+
+						<field name="state" widget="statusbar"
+							statusbar_visible="draft,validate,cancel"
+							statusbar_colors='{"cancel":"red"}' />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name='name' readonly="1" force_save="1" />
+								<field name='date' attrs="{'readonly': [('state','!=', 'draft')]}"/>
+								<field name='currency_id' invisible="1" />
+							</group>
+							<group>
+								<field name='partner_id'
+									attrs="{'readonly': [('state','!=', 'draft')]}" />
+								<field name='bank_id'
+									attrs="{'readonly': [('state','!=', 'draft')]}" />
+							</group>
+						</group>
+						<notebook>
+							<page name="peringatan_satu_line" string="invoice">
+								<field name="line_ids" widget="section_and_note_one2many"
+									mode="tree" attrs="{'readonly': [('state','!=', 'draft')]}"
+									context="{'default_partner_id_order':partner_id}">
+									<form>
+										<sheet>
+											<group>
+												<group>
+													<field name='peringatan_satu_id' invisible='1' />
+													<field name='partner_id_order' readonly='1'
+														force_save="1" />
+													<field name='name' options="{'no_create': True, 'no_create_edit':True}"/>
+													<field name='partner_id' invisible='1' />
+                                                    <field name='residual' />
+													<field name='amount_total' />
+													<field name="currency_id" invisible="1" />
+												</group>
+											</group>
+										</sheet>
+									</form>
+									<tree string="Peringatan" editable="bottom">
+										<field name="name" options="{'no_create': True, 'no_create_edit':True}"/>
+										<field name='partner_id_order' readonly='1'
+											force_save="1" />
+										<field name='partner_id' invisible='1' />
+										<field name='amount_total' sum="Total"/>
+										<field name='residual' sum="Total Due"/>
+										<field name="currency_id" invisible="1" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+        <record id="act_peringatan_satu" model="ir.actions.act_window">
+			<field name="name">Peringatan 1</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">peringatan.satu</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Create a new Peringatan 1
+				</p>
+			</field>
+		</record>
+
+		<menuitem id="menu_peringatan" name="Peringatan"
+			parent="account.menu_finance_receivables" sequence='10'/>
+
+        <menuitem id="menu_peringatan_satu" name="Peringatan 1"
+			parent="dn_invoice_print_out.menu_peringatan" sequence='1'
+			action="dn_invoice_print_out.act_peringatan_satu" />
+
+
+
+<!--             
+
+		<record id="view_voucher_payment_form" model="ir.ui.view">
+			<field name="name">Voucher Payment Form View</field>
+			<field name="model">voucher.payment</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="button_sent" states="draft"
+							string="Sent to Confirm" type="object"
+							confirm="Are you sure you want to do this?" class="oe_highlight" />
+
+						<button name="button_confirm" states="sent"
+							string="Confirm" type="object"
+							confirm="Are you sure you want to Confirm?" class="oe_highlight" />
+
+						<button name="button_approved" states="confirm"
+							string="Approve" type="object"
+							confirm="Are you sure you want to Approve?" class="oe_highlight" />
+
+						<button name="button_cancel" states="confirm,sent,draft" string="Cancel" 
+							type="object" confirm="Are you sure you want to Cancel?" />
+
+						<button name="button_cancel" states="confirm,sent,draft"
+							string="Cancel" type="object"
+							confirm="Are you sure you want to Cancel?" />
+
+						<button name="button_draft" states="cancel"
+							string="Set To Draft" type="object"
+							confirm="Are you sure you want to Draft?" class="oe_highlight" />
+
+						<field name="state" widget="statusbar"
+							statusbar_visible="draft,sent,confirm,approved,cancel"
+							statusbar_colors='{"cancel":"red"}' />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name='name' readonly="1" force_save="1" />
+								<field name='date_payment' />
+								<field name='currency_id' invisible="1" />
+							</group>
+							<group>
+								<field name='partner_id'
+									attrs="{'readonly': [('state','!=', 'draft')]}" />
+								<field name='journal_type_id'
+									attrs="{'readonly': [('state','!=', 'draft')]}" />
+								<field name='comment' />
+							</group>
+						</group>
+						<notebook>
+							<page name="payment_line" string="Bill">
+								<field name="line_ids" widget="section_and_note_one2many"
+									mode="tree" attrs="{'readonly': [('state','!=', 'draft')]}"
+									context="{'default_partner_id_order':partner_id}">
+									<form>
+										<sheet>
+											<group>
+												<group>
+													<field name='payment_id' invisible='1' />
+													<field name='partner_id_order' readonly='1'
+														force_save="1" />
+													<field name='name' />
+													<field name='partner_id' invisible='1' />
+													<field name='amount_total' />
+													<field name='residual' />
+													<field name='state' />
+													<field name="currency_id" invisible="1" />
+												</group>
+											</group>
+										</sheet>
+									</form>
+									<tree string="payment" editable="bottom">
+										<field name="name" />
+										<field name='partner_id_order' readonly='1'
+											force_save="1" />
+										<field name='partner_id' invisible='1' />
+										<field name='amount_total' /> 
+										<field name='residual' /> 
+										<field name='state' />
+										<field name="currency_id" invisible="1" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+						<group class="oe_subtotal_footer oe_right" colspan="2">
+							<field name="amount_total" widget="monetary"
+								options="{'currency_field': 'currency_id'}"
+								class="oe_subtotal_footer_separator" />
+						</group>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_invoice_insurance_tree" model="ir.ui.view">
+			<field name="name">SPK</field>
+			<field name="model">voucher.payment</field>
+			<field name="arch" type="xml">
+				<tree default_order='id' decoration-info="state in ('draft')"
+					decoration-muted="state in ('cancel')" string="Invoice Insurance">
+					<field name='name' />
+					<field name='partner_id' />
+					<field name='state' />
+				</tree>
+			</field>
+		</record>
+
+		<record id="act_voucher_payment" model="ir.actions.act_window">
+			<field name="name">SPK</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">voucher.payment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Create a new SPK
+				</p>
+			</field>
+		</record>
+
+		<menuitem id="menu_voucher_payment" name="SPK"
+			parent="account.menu_finance_payables" sequence='4'
+			action="rd_voucher_payment.act_voucher_payment" /> -->
+
+		
+
+	
+    
+    
+    
+    
+    
+    
+    
+    </data>
+</odoo>

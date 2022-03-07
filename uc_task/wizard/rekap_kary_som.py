@@ -98,8 +98,8 @@ class UcWizardKaryawanSOMReport(models.TransientModel):
                         at_ket = 'Alpha'
 
                     else:
-                        check_in2 = datetime.strptime(atte['check_in2'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.utc).astimezone(active_tz)
-                        check_out2 = datetime.strptime(atte['check_out2'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.utc).astimezone(active_tz)
+                        # check_in2 = datetime.strptime(atte['check_in2'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.utc).astimezone(active_tz)
+                        # check_out2 = datetime.strptime(atte['check_out2'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.utc).astimezone(active_tz)
 
                         hour_from_time = '{0:02.0f}:{1:02.0f}'.format(*divmod(sch.attendance_id.hour_from * 60, 60))
                         jadwal_masuk = str(day)+' '+str(hour_from_time)

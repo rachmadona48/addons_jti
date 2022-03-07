@@ -1,0 +1,253 @@
+<odoo>
+    <data>
+        <template id="printout_kwitansi_pembayaran">
+            <t t-call="web.internal_layout">
+            <t t-if="doc.type == 'out_invoice'">
+                <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:16px;">
+                    <tr>
+                    <td rowspan="4" width="170"   style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                        <img class="image" alt="Library Card"
+                             t-att-src="'data:image/png;base64,%s' % to_text(res_company.logo)"
+                             style="max-width:5.5cm; margin:10px;"/>
+                    </td>
+                    <td rowspan="4" width="435"  style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                        <p style="text-align: center;">
+                            <!-- <strong>KWITANSI </strong><br/> -->
+                            <strong>KUITANSI </strong></p>
+                    </td>
+                    <td width="85" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                        <p>No. Dok</p>
+                    </td>
+                    <td width="76" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+
+                    </td>
+                    </tr>
+                    <tr>
+                        <td width="85" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>Ref</p>
+                        </td>
+                        <td width="76" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="85" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>Revisi</p>
+                        </td>
+                        <td width="76" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="85" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>Tanggal</p>
+                        </td>
+                        <td width="76" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+
+                        </td>
+                    </tr>
+                </table>
+
+
+                <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:16px;">
+                    <tr>
+                        <td rowspan="3" width="50%"   style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                            <p>Sudah Terima Dari :</p>
+                            <span t-field="doc.partner_id.name"/><br/>
+                            <span t-field="doc.partner_id.street"/>
+                            <!-- Phone: <span t-field="doc.partner_id.phone"/>  Fax :<span t-field="doc.partner_id.fax"/> -->
+                        </td>
+                        <td style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>Nomor Kuitansi</p>
+                            <span t-field="doc.number"/>
+                        </td>
+                        <td style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>Tanggal Kuintansi</p>
+                            <span t-field="doc.invoice_date"/>
+                        </td>
+                        <td rowspan="2" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>Halaman :
+                            1/1</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>No Faktur Pajak :</p>
+                        <span t-field="doc.nomor_faktur_id.name"/>
+                        </td>
+                        <td style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>Tanggal Faktur Pajak:</p>
+                        <span t-field="doc.nomor_faktur_id.date_invoice"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:16px;">
+                    <tr>
+                        <td rowspan="1" width="50%"   style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                            <p>Syarat Pembayaran :</p>
+                            <span t-field="doc.payment_term_id.name"/>
+                        </td>
+                        <td style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>Referensi Pelanggan :</p>
+                            <span t-field="doc.name"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:16px;">
+                    <tr>
+                        <td rowspan="1" width="50%"   style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                            <p>Syarat Pengiriman :</p>
+                            <!-- <span t-field="doc.payment_term_id.name"/> -->
+                        </td>
+                        <td width="30%" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>NOMOR SJ/BA:</p>
+                            <!-- <span t-field="doc.name"/> -->
+                        </td>
+                        <td width="20%" style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>TANGGAL SJ/BA:</p>
+                            <!-- <span t-field="doc.name"/> -->
+                        </td>
+                    </tr>
+                </table>
+
+                <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:16px;">
+                    <tr>
+                        <td rowspan="1" width="50%" style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                            <p>NOMOR NPWP :</p>
+                            <span t-field="doc.npwp_no"/>
+                        </td>
+                        <td style="font-family: Arial; border: 1px solid #000; font-size: 13px;">
+                            <p>TARIF POTONG PPH:</p>
+                            <!-- <span t-field="doc.name"/> -->
+                        </td>
+                    </tr>
+                </table>
+
+
+                <table class="table table-responsive">
+                    <thead style="border: 2px solid black;">
+                         <th width="5%">No</th>
+                         <th width="80%">Material /Deskripsi</th>
+                         <th>Total Harga</th>
+                    </thead>
+                    <t t-set="index" t-value="1"/>
+                    <tr t-foreach="doc.invoice_line_ids" t-as="line" style="border: 1px solid black;">
+                        <td><span t-esc="index"/></td>
+                        <td><span t-field="line.name" /></td>
+                        <td><span t-field="line.price_total" /></td>
+                        <t t-set="index" t-value="index+1"/>
+
+                    </tr>
+                </table>
+                <table width="100%"  style="font-family: Arial;font-size:14px;border: 1px solid #000;">
+                    <tr>
+                        <td width="30%">
+                        </td>
+                        <td width="30%">
+                            <th>Subtotal</th>
+                        </td>
+                        <td>
+                            <th>RP <span t-field="doc.amount_total" /></th>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">
+                        </td>
+                        <td width="30%">
+                            <th>PPN: 10.00% of <span t-field="doc.amount_untaxed" /></th>
+                        </td>
+                        <td>
+                            <th>RP <span t-field="doc.total_ppn" /></th>
+                        </td>
+                    </tr>
+                    <tr  style="height: 55px;">
+                        <td width="30%">
+                        </td>
+                        <td width="30%">
+                            <th>Jumlah Tagihan</th>
+                        </td>
+                        <td>
+                            <th>RP <span t-field="doc.amount_total" /></th>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%"  style="font-family: Arial;border: 0px solid #000;font-size:16px;">
+                    <tr>
+                        <td rowspan="1" width="70%" style="font-family: Arial; border: 0px solid #000; font-size: 16px;">
+                            Terbilang :<br/>
+                            <span t-field="doc.amount_terbilang_invoice" />
+                        </td>
+                        <td style="font-family: Arial; border: 0px solid #000; font-size: 13px;">
+                            <center><b>PT JAYA TEKNIK INDONESIA</b></center>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%"  style="font-family: Arial;border: 1px solid #000;font-size:16px;">
+                    <tr>
+                        <td width="25%" style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                            NPWP: 01.313.138.8-073.000 <br/>
+                            PT BANK MANDIRI (Persero) Tbk. <br/>
+                            A/N : PT JAYA TEKNIK INDONESIA <br/>
+                            NO. VIRTUAL ACCOUNT: <br/>
+                            630982937 <br/>
+                            IDR Acct: 0-106558-027
+                        </td>
+                        <td width="25%" style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                            HARAP CANTUMKAN NAMA 
+                            PERUSAHAAN/NO. INVOICE
+                            PADA SAAT PEMBAYARAN. 
+                            APABILA PEMBAYARAN 
+                            DENGAN CHEQUE/GIRO MAKA 
+                            KUITANSI INI BARU SAH BILA 
+                            JUMLAH TERSEBUT TELAH 
+                            DITERIMA OLEH BANK KAMI.
+                        </td>
+                        <td width="25%" style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                            BARANG MASIH MENJADI MILIK 
+                            PT JAYA TEKNIK INDONESIA 
+                            SELAMA BELUM DIBAYAR LUNAS
+                        </td>
+                        <td width="25%" style="font-family: Arial; border: 1px solid #000; font-size: 16px;">
+                            <!-- <span t-field="doc.company_id.website" /> -->
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', doc.company_id.website, 600, 150)" style="width:100%;height:90%;"/>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%"  style="font-family: Arial;border: 0px solid #000;font-size:16px;">
+                    <tr>
+                        <td rowspan="1" width="100%" style="font-family: Arial; border: 0px solid #000; font-size: 16px;">
+                            <b>Invoice ini adalah dokumen yang dihasilkan oleh system. Stempel tanda tangan menunjukkan nama 
+                                pejabat yang berwenang yang telah memberikan persetujuannya sehingga tidak membutuhkan 
+                                tanda tangan basah.</b>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+            </t>
+        </template>
+
+        <template id="print_kwitansi_pembayaran">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="dn_invoice_print_out.printout_kwitansi_pembayaran"/>
+                </t>
+            </t>
+
+        </template>
+         <report
+            id="action_print_kwitansi_pembayaran"
+            string="Kuitansi Pembayaran"
+            model="account.invoice"
+            report_type="qweb-html"
+            file="dn_invoice_print_out.print_kwitansi_pembayaran"
+            name="dn_invoice_print_out.print_kwitansi_pembayaran"
+            menu="1"/>
+
+    </data>
+</odoo>

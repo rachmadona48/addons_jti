@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_voucher_payment" model="ir.sequence">
+		    <field name="name">Permohonan pembayaran</field>
+            <field name="code">permohonan.pembayaran</field>
+		    <field name="prefix">Tekind/D.4.1/XII/%(range_year)s/</field>
+		    <field name="padding">4</field>
+		    <field name="company_id" eval="False"/>
+		</record>
+    </data>
+</odoo>
