@@ -4,6 +4,7 @@ from num2words import num2words
 from datetime import datetime
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
+from odoo.http import request
 
 class dn_peringatan1(models.Model):
     _name = 'peringatan.satu'
@@ -16,6 +17,7 @@ class dn_peringatan1(models.Model):
     name = fields.Char('Nomor', required=True, index=True, copy=False, default='New', track_visibility='onchange')
     bank_id = fields.Many2one('res.partner.bank', string='Bank Account',required=True)
     date = fields.Date('Date', default=fields.Date.today,required=True)
+    deadline_payment = fields.Date('Payment Deadline', default=fields.Date.today,required=True)
     partner_id = fields.Many2one('res.partner', string='Vendor',required=True,  track_visibility='onchange')
     state = fields.Selection([
             ('draft', 'Draft'),
@@ -28,6 +30,65 @@ class dn_peringatan1(models.Model):
         required=True, readonly=True, states={'draft': [('readonly', False)]},
         default=_default_currency, track_visibility='onchange')
     line_ids = fields.One2many('peringatan.satu.line', 'peringatan_satu_id','Peringatan Line',readonly=False,copy=True)
+    amount_total = fields.Monetary(string='Total', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
+    amount_due_total = fields.Monetary(string='Total Due', store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
+
+    def _get_att(self):
+        # print(self.id,' id nya =========================')
+        inv = request.env['peringatan.satu.line'].sudo().search([('peringatan_satu_id', '=', int(self.id))],order='id asc', limit=1)
+       
+        return {
+            'attn': inv.name.attn,
+        }
+
+    def Terbilang(self, bil):
+        angka = ("", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh",
+                 "Delapan", "Sembilan", "Sepuluh", "Sebelas")
+        Hasil = " "
+        n = int(bil)
+        if n >= 0 and n <= 11:
+            Hasil = Hasil + angka[n]
+        elif n < 20:
+            Hasil = self.Terbilang(n % 10) + " belas"
+        elif n < 100:
+            Hasil = self.Terbilang(n / 10) + " Puluh" + self.Terbilang(n % 10)
+        elif n < 200:
+            Hasil = " Seratus" + self.Terbilang(n - 100)
+        elif n < 1000:
+            Hasil = self.Terbilang(n / 100) + " Ratus" + self.Terbilang(n % 100)
+        elif n < 2000:
+            Hasil = " Seribu" + self.Terbilang(n - 1000)
+        elif n < 1000000:
+            Hasil = self.Terbilang(n / 1000) + " Ribu" + self.Terbilang(n % 1000)
+        elif n < 1000000000:
+            Hasil = self.Terbilang(n / 1000000) + " Juta" + self.Terbilang(n % 1000000)
+        else:
+            Hasil = self.Terbilang(n / 1000000000) + " Milyar" + self.Terbilang(n % 1000000000)
+        return Hasil
+
+    @api.one
+    @api.depends('amount_total')
+    def _amount_to_text_cz(self):
+        for r in self:
+            if r.currency_id.name == "IDR":
+                r.amount_terbilang = r.Terbilang(r.amount_total) + "Rupiah"
+            else:
+                r.amount_terbilang = r.currency_id.amount_to_text(r.amount_total)
+    amount_terbilang = fields.Char(compute='_amount_to_text_cz', string="Jumlah Terbilang")
+
+    @api.one
+    @api.depends('line_ids.amount_total')
+    def _amount_all(self):
+        total = 0.0
+        total_due = 0.0
+        for line in self.line_ids:
+            total += line.amount_total
+            total_due += line.residual
+            
+        self.update({
+            'amount_total': total,
+            'amount_due_total': total_due,
+            })
 
     @api.multi
     def button_validate(self):
@@ -48,6 +109,9 @@ class dn_peringatan1_line(models.Model):
     name = fields.Many2one('account.invoice', string='Invoice',
         ondelete='cascade', index=True, required=True,domain="[('type','=','out_invoice'),('state','=','open')]")
     partner_id = fields.Many2one('res.partner', string='Vendor',required=True, related="name.partner_id")
+    invoice_date = fields.Date('Invoice Date', related="name.date_invoice", store=True)
+    date_due = fields.Date('Due Date', related="name.date_due", store=True)
+    description_invoice = fields.Char('Description', related="name.description_invoice")
     currency_id = fields.Many2one('res.currency', string='Currency',
         required=True, readonly=True,related="name.currency_id")
     amount_total = fields.Monetary(string='Total',
@@ -85,6 +149,7 @@ class dn_peringatan1_wizard(models.TransientModel):
     invoice_ids = fields.Many2many('account.invoice', string='Invoices', copy=False)
     bank_id = fields.Many2one('res.partner.bank', string='Bank Account',required=True)
     date = fields.Date('Date', default=fields.Date.today,required=True)
+    deadline_payment = fields.Date('Payment Deadline', default=fields.Date.today,required=True)
     
     @api.multi
     def create_peringatan_satu(self):
@@ -124,6 +189,7 @@ class dn_peringatan1_wizard(models.TransientModel):
                 'partner_id': partner[0],
                 'bank_id': self.bank_id.id,
                 'date' :self.date,
+                'deadline_payment' : self.deadline_payment,
                 'line_ids' : [(0,0,line) for line in invoice_id ]
                 })
             
