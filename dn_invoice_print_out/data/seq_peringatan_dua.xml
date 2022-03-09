@@ -1,0 +1,13 @@
+<odoo>
+	<data>
+
+		<record id="seq_peringatan_dua" model="ir.sequence">
+		    <field name="name">Peringatan Dua</field>
+		    <field name="code">peringatan.dua</field>
+		    <field name="prefix">PR2%(y)s%(month)s</field>
+		    <field name="padding">4</field>
+		    <field name="company_id" eval="False"/>
+		</record>
+
+    </data>
+</odoo>

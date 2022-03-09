@@ -1,0 +1,131 @@
+<odoo>
+    <data>
+        <template id="report_print_peringatan_dua">
+            <t t-call="web.internal_layout">
+                <div class="page" style="font-size:14px">
+                    <div class="col-md-6 col-xs-6">
+                        <div class="row">
+                        <p>Nomor: <span t-field="doc.name" /></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <div class="row">
+                            <p class="text-right">Jakarta, <span t-field="doc.date" /></p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="row">
+                            <p >Kepada Yth:</p>
+                            <span t-field="doc.partner_id.name"/><br/>
+                            <span t-field="doc.partner_id.street"/>
+                        </div>
+                        <div class="row">
+                            <t t-set="att" t-value="doc._get_att()"/>
+                            <p><b>U/p : <span t-esc="att['attn']"/></b></p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="row">
+                            <center><p>Perihal : Surat Peringatan II</p></center>
+                        </div>
+                        <div class="row">
+                            <p>Dengan Hormat,</p>
+                            <p>Sebelumnya kami mengucapkan terima kasih atas pembayaran cicilan yang kami terima sebelumnya, 
+                            selanjutnya menunjuk surat Kami nomor: <span t-field="doc.sp_satu.name"/> tanggal <span t-field="doc.sp_satu.date"/>  
+                            perihal Kewajiban Saudara (SP I), dimana hingga saat ini masih belum diterima 
+                            pelunasan  atas outstanding hutang Saudara. Maka kami tegaskan hal hal berikut :</p>
+                            <!-- <p class="text-align">Bersama dengan surat ini kami informasikan bahwa masih terdapat 
+                            kewajiban pembayaran Perusahaan Saudara telah jatuh tempo dan sampai dengan saat surat 
+                            ini dikirimkan kami belum menerima pembayaran pelunasan atas Kewajiban Saudara tersebut</p>
+                            <p class="text-align">Adapun nilai total hutang Perusahaan Saudara kepada PT Jaya Teknik Indonesia 
+                            adalah sebesar <b><span t-field="doc.amount_total"/> (<span t-field="doc.amount_terbilang"/>)</b>  
+                            dengan rincian sebagai berikut :</p> -->
+                            <table class="table table-responsive">
+                                <thead style="border: 2px solid black;">
+                                    <th><center>No Invoice</center></th>
+                                    <th><center>Tgl Invoice</center></th>
+                                    <th><center>Jatuh Tempo</center></th>
+                                    <th>
+                                        <center>
+                                            Outstanding<br/>
+                                            Hutang
+                                        </center>
+                                    </th>
+                                    <th>
+                                        <center>
+                                            Cost Of Money<br/>
+                                            20% / Bulan
+                                        </center>
+                                    </th>
+                                    <th><center>Total</center></th>
+                                </thead>
+                                <tr t-foreach="doc.line_ids" t-as="line" style="border: 1px solid black;">
+                                    <td><span t-field="line.name" /></td>
+                                    <td><span t-field="line.invoice_date" /></td>
+                                    <td><span t-field="line.date_due" /></td>
+                                    <td><span t-field="line.residual" /></td>
+                                    <td><span t-field="line.com" /></td>
+                                    <td><span t-field="line.total" /></td>
+                                </tr>
+                            </table>
+                            <p class="text-align">Mengingat kewajiban tersebut sudah berlangsung lama dan kami telah memberikan waktu 
+                            yang cukup kepada Saudara, maka kami terapkan bunga keterlambatan (cost of money) <b>sebesar 20 % / bulan.</b> </p>
+                            <p class="text-align">Pembayaran atas total hutang dan bunga keterlambatan  ditujukan kepada:</p>
+                        </div>
+                        <div class="row">
+                            <p>
+                                <b>
+                                <span t-field="doc.bank_id.bank_id.name"/> <br/>
+                                A/c No   : <span t-field="doc.bank_id.acc_number"/> <br/>
+                                A/n	 : <span t-field="doc.bank_id.partner_id.name"/> <br/>
+                                </b>
+                            </p>
+                            <p>
+                                Bahwa apabila Saudara tidak menyelesaikan Kewajiban diatas <b>selambat-lambatnya 14 (empat belas) 
+                                hari kalender dan terhitung sejak surat ini diterima</b>, maka permasalahan ini kami limpahkan pada 
+                                <b>Biro Hukum PT. Jaya Teknik Indonesia</b> untuk  menempuh dan mempergunakan seluruh jalur hukum yang 
+                                diperlukan. 
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 col-xs-8">
+                                <p>
+                                    Demikian kami sampaikan dan atas perhatiannya diucapkan terima kasih.<br/>
+                                    Hormat Kami,<br/>
+                                    <b>PT JAYA TEKNIK INDONESIA</b>
+                                    <br/><br/><br/><br/><br/>
+                                    <b>Ir. Haryanto Damanik, MM</b><br/>
+                                    Wakil Presiden Direktur
+                                </p>
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                                Tembusan :<br/>
+                                - Direksi <br/>
+                                - Ka. Dirat Kontrakting <br/>
+                                - Arsip
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_peringatan_dua">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="dn_invoice_print_out.report_print_peringatan_dua"/>
+                </t>
+            </t>
+
+        </template>
+         <report
+            id="action_print_peringatan_dua"
+            string="Print Peringatan 2"
+            model="peringatan.dua"
+            report_type="qweb-html"
+            file="dn_invoice_print_out.report_peringatan_dua"
+            name="dn_invoice_print_out.report_peringatan_dua"
+            />
+
+    </data>
+</odoo>

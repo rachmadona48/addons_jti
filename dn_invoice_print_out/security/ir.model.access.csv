@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_peringatan_satu,dn_invoice_print_out.access_peringatan_satu,model_peringatan_satu,account.group_account_invoice,1,1,1,1
 access_peringatan_satu_line,dn_invoice_print_out.access_peringatan_satu_line,model_peringatan_satu_line,account.group_account_invoice,1,1,1,1
+access_peringatan_dua,dn_invoice_print_out.access_peringatan_dua,model_peringatan_dua,account.group_account_invoice,1,1,1,1
+access_peringatan_dua_line,dn_invoice_print_out.access_peringatan_dua_line,model_peringatan_dua_line,account.group_account_invoice,1,1,1,1
