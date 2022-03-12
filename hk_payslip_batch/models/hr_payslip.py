@@ -20,7 +20,9 @@ class Inherit_hk_payslip_batch(models.Model):
 
         list_data = []
         for x in self.slip_ids:
-            line = x.line_ids.filtered(lambda r: r.code == 'THP')
+            line = x.line_ids.filtered(lambda r: r.code == 'BRUTO')
+            print(line,' line ================')
+            exit()
             if line:
                 thp = line.total
             else:
@@ -75,7 +77,7 @@ class Inherit_hk_payslip_batch(models.Model):
 
     @api.multi
     def act_create_invoice(self):
-
+        exit()
         invoice_line_ids = self.get_data('internal')
         if invoice_line_ids:
             no_vendor = self.env['res.partner'].search([('id', '=', 15501)])

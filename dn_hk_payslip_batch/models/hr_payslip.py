@@ -17,7 +17,7 @@ class dn_hk_Hr_Payslip(models.Model):
                 for cp in cek_payslip_sama:
                     raise UserError(_('Payslip '+str(dt.employee_id.name)+' is duplicate with '+str(cp.number)))
 
-            line = dt.line_ids.filtered(lambda r: r.code == 'THP')
+            line = dt.line_ids.filtered(lambda r: r.code == 'BRUTO')
             if line:
                 total_thp = line.total
             else:
@@ -50,7 +50,7 @@ class dn_hk_payslip_batch(models.Model):
 
         list_data = []
         for x in self.slip_ids:
-            line = x.line_ids.filtered(lambda r: r.code == 'THP')
+            line = x.line_ids.filtered(lambda r: r.code == 'BRUTO')
             if line:
                 thp = line.total
             else:
